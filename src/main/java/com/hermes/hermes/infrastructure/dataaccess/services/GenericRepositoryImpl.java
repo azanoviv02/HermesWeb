@@ -13,6 +13,7 @@ import java.util.UUID;
 public class GenericRepositoryImpl<T extends AbstractPersistentObject> implements GenericRepository<T> {
 
     protected final Class<? extends T> repositoryType;
+
     private final SessionFactory sessionFactory;
 
     public GenericRepositoryImpl(Class<? extends T> repositoryType, SessionFactory sessionFactory) {
