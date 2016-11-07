@@ -6,6 +6,8 @@ import com.hermes.hermes.domain.orders.OrderBuilder;
 import com.hermes.hermes.infrastructure.dataaccess.services.OrderService;
 import com.hermes.hermes.userinterface.ConsoleView;
 import com.hermes.hermes.userinterface.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -13,34 +15,36 @@ import java.util.List;
 /**
  * Created by ivan on 31.10.16.
  */
+@Component
 public class ManagerState extends AbstractUserState {
 
     private final OrderService orderService;
 
+    @Autowired
     public ManagerState(OrderService orderService) {
         this.orderService = orderService;
     }
 
-    public void analyseCommands(Controller controller){
-
-        ConsoleView consoleView = controller.getConsoleView();
-        consoleView.print("Manager: ");
-        String[] command = consoleView.readLine();
-
-        if(match(command, "add", "order")){
-            addOrder(controller);
-        }
-
-        if(match(command, "view", "orders")){
-            printAllOrders(controller);
-        }
-
-        if(match(command, "view", "orders", "with", "cargo")){
-            printAllOrdersWithCargo(controller);
-        }
-
-        analyseCommandsUserCommon(controller, command);
-    }
+//    public void analyseCommands(Controller controller){
+//
+//        ConsoleView consoleView = controller.getConsoleView();
+//        consoleView.print("Manager: ");
+//        String[] command = consoleView.readLine();
+//
+//        if(match(command, "add", "order")){
+//            addOrder(controller);
+//        }
+//
+//        if(match(command, "view", "orders")){
+//            printAllOrders(controller);
+//        }
+//
+//        if(match(command, "view", "orders", "with", "cargo")){
+//            printAllOrdersWithCargo(controller);
+//        }
+//
+//        analyseCommandsUserCommon(controller, command);
+//    }
 
     void printHelp(Controller controller){
         super.printHelp(controller);

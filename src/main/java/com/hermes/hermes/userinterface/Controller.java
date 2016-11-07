@@ -32,7 +32,7 @@ public class Controller {
     }
 
     public void parseCommand() {
-        this.currentState.analyseCommands(this);
+        //this.currentState.analyseCommands(this);
     }
 
     void launch() {

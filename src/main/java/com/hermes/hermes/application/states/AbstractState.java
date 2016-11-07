@@ -6,24 +6,24 @@ import com.hermes.hermes.userinterface.Controller;
 public abstract class AbstractState {
 
     //Template method pattern;
-    final void analyseCommandsGlobal(Controller controller, String[] command){
-
-        ConsoleView consoleView = controller.getConsoleView();
-
-        switch(command.length){
-            case 1:
-                switch (command[0].toLowerCase()){
-                    case "help":
-                        printHelp(controller);
-                        return;
-                    case "close":
-                        consoleView.println("Program has been closed");
-                        System.exit(0);
-                }
-        }
-
-        consoleView.println("Invalid command, type \"help\" to get list of commands");
-    }
+//    final void analyseCommandsGlobal(Controller controller, String[] command){
+//
+//        ConsoleView consoleView = controller.getConsoleView();
+//
+//        switch(command.length){
+//            case 1:
+//                switch (command[0].toLowerCase()){
+//                    case "help":
+//                        printHelp(controller);
+//                        return;
+//                    case "close":
+//                        consoleView.println("Program has been closed");
+//                        System.exit(0);
+//                }
+//        }
+//
+//        consoleView.println("Invalid command, type \"help\" to get list of commands");
+//    }
 
     void printHelp(Controller controller){
         ConsoleView consoleView = controller.getConsoleView();
@@ -56,6 +56,4 @@ public abstract class AbstractState {
     boolean match(String[] command, String...expectedCommand){
         return matches(false, command, expectedCommand);
     }
-
-    public abstract void analyseCommands(Controller controller);
 }

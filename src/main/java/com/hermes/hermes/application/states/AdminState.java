@@ -7,59 +7,63 @@ import com.hermes.hermes.infrastructure.dataaccess.services.UserService;
 import com.hermes.hermes.infrastructure.dataaccess.specifications.users.UserWhich;
 import com.hermes.hermes.userinterface.ConsoleView;
 import com.hermes.hermes.userinterface.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AdminState extends AbstractUserState {
 
     private final UserService userService;
     private final UserFactory userFactory;
     private final UserWhich userWhich;
 
+    @Autowired
     public AdminState(UserService userService, UserFactory userFactory, UserWhich userWhich) {
         this.userService = userService;
         this.userFactory = userFactory;
         this.userWhich = userWhich;
     }
 
-    public void analyseCommands(Controller controller){
-
-        ConsoleView consoleView = controller.getConsoleView();
-        consoleView.print("Admin: ");
-        String[] command = consoleView.readLine();
-
-        if(command.length == 1) {
-            switch (command[0].toLowerCase()) {
-                case "admins":
-                    printAllAdmins(controller);
-                    return;
-                case "drivers":
-                    printAllDrivers(controller);
-                    return;
-                case "managers":
-                    printAllManagers(controller);
-                    return;
-                case "planners":
-                    printAllPlanners(controller);
-                    return;
-                case "informers":
-                    printAllInformers(controller);
-                    return;
-            }
-        }
-
-        if(match(command, "all", "users")) {
-            printAllUsers(controller);
-            return;
-        }
-
-        if(match(command, "add", "user")) {
-            addUser(controller);
-            return;
-        }
-
-        analyseCommandsUserCommon(controller, command);
-    }
+//    public void analyseCommands(Controller controller){
+//
+//        ConsoleView consoleView = controller.getConsoleView();
+//        consoleView.print("Admin: ");
+//        String[] command = consoleView.readLine();
+//
+//        if(command.length == 1) {
+//            switch (command[0].toLowerCase()) {
+//                case "admins":
+//                    printAllAdmins(controller);
+//                    return;
+//                case "drivers":
+//                    printAllDrivers(controller);
+//                    return;
+//                case "managers":
+//                    printAllManagers(controller);
+//                    return;
+//                case "planners":
+//                    printAllPlanners(controller);
+//                    return;
+//                case "informers":
+//                    printAllInformers(controller);
+//                    return;
+//            }
+//        }
+//
+//        if(match(command, "all", "users")) {
+//            printAllUsers(controller);
+//            return;
+//        }
+//
+//        if(match(command, "add", "user")) {
+//            addUser(controller);
+//            return;
+//        }
+//
+//        analyseCommandsUserCommon(controller, command);
+//    }
 
     void printHelp(Controller controller){
         super.printHelp(controller);

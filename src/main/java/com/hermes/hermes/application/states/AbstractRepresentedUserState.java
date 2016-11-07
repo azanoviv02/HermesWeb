@@ -26,21 +26,21 @@ public abstract class AbstractRepresentedUserState extends AbstractUserState {
         super.setCurrentUser(currentUser);
     }
 
-    final void analyseCommandsRepresented(Controller controller, String[] command){
-
-        ConsoleView consoleView = controller.getConsoleView();
-
-        switch(command.length){
-            case 1:
-                switch (command[0].toLowerCase()) {
-                    case "salary":
-                        printSalary(controller);
-                        return;
-                }
-        }
-
-        analyseCommandsUserCommon(controller, command);
-    }
+//    final void analyseCommandsRepresented(Controller controller, String[] command){
+//
+//        ConsoleView consoleView = controller.getConsoleView();
+//
+//        switch(command.length){
+//            case 1:
+//                switch (command[0].toLowerCase()) {
+//                    case "salary":
+//                        printSalary(controller);
+//                        return;
+//                }
+//        }
+//
+//        analyseCommandsUserCommon(controller, command);
+//    }
 
     void printHelp(Controller controller){
         super.printHelp(controller);

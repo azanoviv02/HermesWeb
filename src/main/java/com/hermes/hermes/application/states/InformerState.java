@@ -6,38 +6,42 @@ import com.hermes.hermes.domain.places.PlaceFactory;
 import com.hermes.hermes.infrastructure.dataaccess.services.PlaceService;
 import com.hermes.hermes.userinterface.ConsoleView;
 import com.hermes.hermes.userinterface.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by ivan on 02.11.16.
  */
+@Component
 public class InformerState extends AbstractUserState {
 
     private final PlaceService placeService;
     private final PlaceFactory placeFactory;
 
+    @Autowired
     public InformerState(PlaceService placeService, PlaceFactory placeFactory) {
         this.placeService = placeService;
         this.placeFactory = placeFactory;
     }
 
-    public void analyseCommands(Controller controller){
-
-        ConsoleView consoleView = controller.getConsoleView();
-        consoleView.print("Informer: ");
-        String[] command = consoleView.readLine();
-
-        switch(command.length){
-            case 2:
-                if(command[0].toLowerCase().equals("add")){
-                    if(command[1].toLowerCase().equals("place")){
-                        addPlace(controller);
-                        return;
-                    }
-                }
-        }
-
-        analyseCommandsUserCommon(controller, command);
-    }
+//    public void analyseCommands(Controller controller){
+//
+//        ConsoleView consoleView = controller.getConsoleView();
+//        consoleView.print("Informer: ");
+//        String[] command = consoleView.readLine();
+//
+//        switch(command.length){
+//            case 2:
+//                if(command[0].toLowerCase().equals("add")){
+//                    if(command[1].toLowerCase().equals("place")){
+//                        addPlace(controller);
+//                        return;
+//                    }
+//                }
+//        }
+//
+//        analyseCommandsUserCommon(controller, command);
+//    }
 
     void printHelp(Controller controller){
         super.printHelp(controller);

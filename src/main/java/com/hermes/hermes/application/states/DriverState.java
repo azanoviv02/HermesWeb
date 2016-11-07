@@ -5,35 +5,37 @@ import com.hermes.hermes.domain.employees.AbstractDriver;
 import com.hermes.hermes.domain.employees.AbstractEmployee;
 import com.hermes.hermes.userinterface.ConsoleView;
 import com.hermes.hermes.userinterface.Controller;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by ivan on 31.10.16.
  */
+@Component
 public class DriverState extends AbstractRepresentedUserState {
 
     DriverState() {
     }
 
-    public void analyseCommands(Controller controller){
-
-        ConsoleView consoleView = controller.getConsoleView();
-        consoleView.print("Driver: ");
-        String[] command = consoleView.readLine();
-
-        switch(command.length){
-            case 1:
-                switch (command[0].toLowerCase()){
-                    case "report":
-                        consoleView.println("Reporting finished haul!");
-                        return;
-                    case "license":
-                        printLicense(controller);
-                        return;
-                }
-        }
-
-        analyseCommandsRepresented(controller, command);
-    }
+//    public void analyseCommands(Controller controller){
+//
+//        ConsoleView consoleView = controller.getConsoleView();
+//        consoleView.print("Driver: ");
+//        String[] command = consoleView.readLine();
+//
+//        switch(command.length){
+//            case 1:
+//                switch (command[0].toLowerCase()){
+//                    case "report":
+//                        consoleView.println("Reporting finished haul!");
+//                        return;
+//                    case "license":
+//                        printLicense(controller);
+//                        return;
+//                }
+//        }
+//
+//        analyseCommandsRepresented(controller, command);
+//    }
 
     void printHelp(Controller controller){
         super.printHelp(controller);

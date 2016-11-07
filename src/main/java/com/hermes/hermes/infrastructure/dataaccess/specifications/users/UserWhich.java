@@ -5,10 +5,12 @@ import com.hermes.hermes.domain.users.AbstractUser;
 import com.hermes.hermes.domain.users.Role;
 import com.hermes.hermes.infrastructure.dataaccess.specifications.AbstractWhich;
 import com.hermes.hermes.infrastructure.dataaccess.specifications.Specification;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by ivan on 02.11.16.
  */
+@Component
 public class UserWhich extends AbstractWhich<AbstractUser> {
 
     public UserWhich() {

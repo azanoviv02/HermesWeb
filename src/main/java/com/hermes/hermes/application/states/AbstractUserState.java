@@ -24,22 +24,22 @@ public abstract class AbstractUserState extends AbstractState {
     }
 
     //Template method pattern
-    final void analyseCommandsUserCommon(Controller controller, String[] command){
-
-        switch(command.length){
-            case 1:
-                switch (command[0].toLowerCase()){
-                    case "info":
-                        printInfo(controller);
-                        return;
-                    case "exit":
-                        exitCurrentState(controller);
-                        return;
-                }
-        }
-
-        analyseCommandsGlobal(controller, command);
-    }
+//    final void analyseCommandsUserCommon(Controller controller, String[] command){
+//
+//        switch(command.length){
+//            case 1:
+//                switch (command[0].toLowerCase()){
+//                    case "info":
+//                        printInfo(controller);
+//                        return;
+//                    case "exit":
+//                        exitCurrentState(controller);
+//                        return;
+//                }
+//        }
+//
+//        analyseCommandsGlobal(controller, command);
+//    }
 
     void printHelp(Controller controller){
         super.printHelp(controller);
