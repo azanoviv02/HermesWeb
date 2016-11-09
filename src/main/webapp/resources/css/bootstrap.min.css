@@ -337,7 +337,7 @@ td, th {
     content: "\e007"
 }
 
-.glyphicon-user:before {
+.glyphicon-account:before {
     content: "\e008"
 }
 
@@ -3348,6 +3348,10 @@ select[multiple].input-lg, textarea.input-lg {
     margin-left: -15px
 }
 
+.control-label {
+    text-align: right
+}
+
 @media (min-width: 768px) {
     .form-horizontal .control-label {
         padding-top: 7px;
@@ -3387,10 +3391,10 @@ select[multiple].input-lg, textarea.input-lg {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    -webkit-account-select: none;
+    -moz-account-select: none;
+    -ms-account-select: none;
+    account-select: none;
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px
@@ -3516,6 +3520,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-success {
     color: #fff;
+    /*background-color: #A00606;*/
+    /*border-color: #A00606;*/
     background-color: #5cb85c;
     border-color: #4cae4c
 }

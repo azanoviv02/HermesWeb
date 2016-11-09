@@ -1,12 +1,10 @@
 package com.hermes.web.signup;
 
+import com.hermes.core.domain.accounts.*;
 import com.hermes.web.web.MessageHelper;
-import com.hermes.core.domain.users.AbstractUser;
-import com.hermes.core.domain.users.LoginAlreadyTakenException;
-import com.hermes.core.domain.users.NoSuchRoleException;
-import com.hermes.core.domain.users.UserFactory;
-import com.hermes.core.infrastructure.dataaccess.services.UserService;
+import com.hermes.core.infrastructure.dataaccess.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -23,10 +21,12 @@ public class SignupController {
     private static final String SIGNUP_VIEW_NAME = "signup/signup";
 
 	@Autowired
-	private UserService userService;
+	private AccountService accountService;
 	@Autowired
-	private UserFactory userFactory;
-	
+	private AccountFactory accountFactory;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@RequestMapping(value = "signup")
 	public String signup(Model model) {
 		model.addAttribute(new SignupForm());
@@ -43,8 +43,8 @@ public class SignupController {
 		try {
 //			signupForm.setName("Pave Dudkin");
 //			signupForm.setRole("admin");
-			AbstractUser newUser = userFactory.createUser(signupForm);
-			userService.add(newUser);
+			AbstractAccount newAccount = createAccount(signupForm);
+			accountService.add(newAccount);
 			MessageHelper.addSuccessAttribute(ra, "signup.success");
 			return "redirect:/";
 		}catch(LoginAlreadyTakenException | NoSuchRoleException e){
@@ -53,4 +53,36 @@ public class SignupController {
 		}
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
 	}
+
+    public AbstractAccount createAccount(SignupForm signupForm)
+            throws LoginAlreadyTakenException, NoSuchRoleException{
+
+//        Role role = null;
+//
+//        switch (signupForm.getRole().toLowerCase()){
+//            case "admin":
+//                role = Role.ADMIN;
+//                break;
+//            case "manager":
+//                role = Role.MANAGER;
+//                break;
+//            case "driver":
+//                role = Role.DRIVER;
+//                break;
+//            case "informer":
+//                role = Role.PLANNER;
+//                break;
+//            case "planner":
+//                role = Role.INFORMER;
+//                break;
+//            default:
+//                throw new NoSuchRoleException();
+//        }
+
+        return accountFactory.createAccount(
+                signupForm.getLogin(),
+                passwordEncoder.encode(signupForm.getPassword()),
+                signupForm.getName(),
+                signupForm.getRole());
+    }
 }

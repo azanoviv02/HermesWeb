@@ -17,3 +17,50 @@ body {
        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
             box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
+
+    /*//////////////////////////////// Added By Ivan ////////////////////////////////*/
+
+.form-narrow-trans {
+    max-width: 490px;
+    padding: 0px 0px 0px;
+    margin: 0 auto 20px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.coupled-upper{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+
+.coupled-lower {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-upper: 0;
+    border-top: 0;
+}
+
+.coupled-borders {
+    border-right: 7px solid #5cb85c;
+    border-left: 7px solid #5cb85c;
+}
+
+.btn-next-cargo{
+    font-size: 18px;
+}
+
+.btn-finish-order{
+    font-size: 30px;
+}
+
+.legendless{
+    margin-top: 50px;
+}
+
+.fixed-min-height{
+    min-height: 460px;
+}

@@ -94,6 +94,7 @@ public class GenericServiceImpl<T extends AbstractPersistentObject> implements G
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<T> getAll() {
+        System.out.println("Inside service");
         return repository.getAll();
     }
 

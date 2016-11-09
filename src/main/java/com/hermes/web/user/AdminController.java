@@ -1,4 +1,4 @@
-package com.hermes.web.user;
+package com.hermes.web.account;
 
 /**
  * Created by ivan on 08.11.16.

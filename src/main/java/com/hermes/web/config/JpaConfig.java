@@ -1,9 +1,19 @@
 package com.hermes.web.config;
 
 import com.hermes.Application;
-import com.hermes.web.account.Account;
-import com.hermes.core.domain.users.AbstractUser;
-import com.hermes.core.domain.users.BasicUser;
+import com.hermes.core.domain.accounts.AbstractAccount;
+import com.hermes.core.domain.accounts.BasicAccount;
+import com.hermes.core.domain.accounts.RepresentedAccount;
+import com.hermes.core.domain.cargo.AbstractCargo;
+import com.hermes.core.domain.employees.AbstractDriver;
+import com.hermes.core.domain.employees.AbstractEmployee;
+import com.hermes.core.domain.hauls.AbstractHaul;
+import com.hermes.core.domain.milestones.AbstractMilestone;
+import com.hermes.core.domain.milestones.FinishMilestone;
+import com.hermes.core.domain.milestones.StartMilestone;
+import com.hermes.core.domain.orders.AbstractOrder;
+import com.hermes.core.domain.places.*;
+import com.hermes.core.domain.vehicles.AbstractVehicle;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.SessionFactory;
@@ -83,11 +93,33 @@ class JpaConfig {
     public SessionFactory getSessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 
-        sessionBuilder.addAnnotatedClasses(Account.class);
-        sessionBuilder.addAnnotatedClasses(AbstractUser.class);
-        sessionBuilder.addAnnotatedClasses(BasicUser.class);
-//        sessionBuilder.addAnnotatedClasses(RepresentedUser.class);
+        sessionBuilder.addAnnotatedClasses(AbstractAccount.class);
+        sessionBuilder.addAnnotatedClasses(BasicAccount.class);
+        sessionBuilder.addAnnotatedClasses(RepresentedAccount.class);
 
+        sessionBuilder.addAnnotatedClasses(AbstractPlace.class);
+        sessionBuilder.addAnnotatedClasses(AbstractBase.class);
+        sessionBuilder.addAnnotatedClasses(BasicCompanyBase.class);
+        sessionBuilder.addAnnotatedClasses(BasicClientBase.class);
+        sessionBuilder.addAnnotatedClasses(AbstractFix.class);
+        sessionBuilder.addAnnotatedClasses(BasicFix.class);
+
+        sessionBuilder.addAnnotatedClasses(AbstractMilestone.class);
+        sessionBuilder.addAnnotatedClasses(StartMilestone.class);
+        sessionBuilder.addAnnotatedClasses(FinishMilestone.class);
+
+        sessionBuilder.addAnnotatedClasses(AbstractHaul.class);
+
+        sessionBuilder.addAnnotatedClasses(AbstractEmployee.class);
+        sessionBuilder.addAnnotatedClasses(AbstractDriver.class);
+
+        sessionBuilder.addAnnotatedClasses(AbstractVehicle.class);
+
+        sessionBuilder.addAnnotatedClasses(AbstractCargo.class);
+
+        sessionBuilder.addAnnotatedClasses(AbstractOrder.class);
+
+        System.out.println("Factory built!");
         return sessionBuilder.buildSessionFactory();
     }
 

@@ -19,7 +19,7 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('login')}? 'has-error'">
             <label for="login" class="col-lg-2 control-label">Login</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="login" placeholder="Login address" th:field="*{login}" />
+                <input type="text" class="form-control" id="login" placeholder="Login" th:field="*{login}" />
                 <span class="help-block" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Incorrect login</span>
             </div>
         </div>
@@ -40,8 +40,10 @@
         <div class="form-group" th:classappend="${#fields.hasErrors('role')}? 'has-error'">
             <label for="role" class="col-lg-2 control-label">Role</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="role" placeholder="Role" th:field="*{role}"/>
-                <span class="help-block" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Incorrect role</span>
+                <select id="segmentoSel" class="form-control" th:field="*{role}">
+                    <option value="" selected="selected" id="role">Role</option>
+                    <option th:each="segmento : ${T(com.hermes.core.domain.accounts.Role).values()}" th:value="${segmento}" th:text="${segmento}">Roles</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

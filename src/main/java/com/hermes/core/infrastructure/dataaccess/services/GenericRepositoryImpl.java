@@ -61,6 +61,9 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public List<T> getAll() {
+        System.out.println("Inside repository");
+        List<T> results = currentSession().createCriteria(repositoryType).list();
+        System.out.println("Resulting size: "+results.size());
         return currentSession().createCriteria(repositoryType).list();
     }
 }

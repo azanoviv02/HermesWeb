@@ -2,7 +2,7 @@ package com.hermes.core.domain.employees;
 
 
 import com.hermes.core.domain.AbstractPersistentObject;
-import com.hermes.core.domain.users.RepresentedUser;
+import com.hermes.core.domain.accounts.RepresentedAccount;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -29,7 +29,7 @@ public abstract class AbstractEmployee extends AbstractPersistentObject {
 
     @Cascade({CascadeType.ALL})
     @OneToOne(mappedBy = "representation", fetch = FetchType.EAGER)
-    RepresentedUser representedUser;
+    RepresentedAccount representedAccount;
 
     AbstractEmployee() {
     }

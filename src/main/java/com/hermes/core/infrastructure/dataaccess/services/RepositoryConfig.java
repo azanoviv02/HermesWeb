@@ -1,17 +1,19 @@
 package com.hermes.core.infrastructure.dataaccess.services;
 
+import com.hermes.core.domain.accounts.AbstractAccount;
 import com.hermes.core.domain.cargo.AbstractCargo;
 import com.hermes.core.domain.employees.AbstractEmployee;
 import com.hermes.core.domain.hauls.AbstractHaul;
 import com.hermes.core.domain.milestones.AbstractMilestone;
 import com.hermes.core.domain.orders.AbstractOrder;
 import com.hermes.core.domain.places.AbstractPlace;
-import com.hermes.core.domain.users.AbstractUser;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * Created by ivan on 08.11.16.
@@ -29,6 +31,10 @@ public class RepositoryConfig {
 
     @Bean(name = "employeeRepository")
     public GenericRepository<AbstractEmployee> employeeRepository(){
+//        if(sessionFactory == null){
+//            throw new IllegalStateException("No session factory!");
+//        }
+//        System.out.println("Employee repository configured!");
         return new GenericRepositoryImpl<>(AbstractEmployee.class, sessionFactory);
     }
 
@@ -52,9 +58,9 @@ public class RepositoryConfig {
         return new GenericRepositoryImpl<>(AbstractPlace.class, sessionFactory);
     }
 
-    @Bean(name = "userRepository")
-    public GenericRepository<AbstractUser> userRepository(){
-        return new GenericRepositoryImpl<>(AbstractUser.class, sessionFactory);
+    @Bean(name = "accountRepository")
+    public GenericRepository<AbstractAccount> accountRepository(){
+        return new GenericRepositoryImpl<>(AbstractAccount.class, sessionFactory);
     }
 
     @Bean(name = "vehicleRepository")

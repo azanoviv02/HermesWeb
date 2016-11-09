@@ -1,22 +1,28 @@
 package com.hermes.web.signup;
 
+import com.hermes.core.domain.accounts.Role;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 public class SignupForm {
 
 	private static final String NOT_BLANK_MESSAGE = "{notBlank.message}";
 
+    @NotNull
     @NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
 	private String login;
 
+    @NotNull
     @NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
 	private String password;
 
+    @NotNull
 	@NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
 	private String name;
 
-	@NotBlank(message = SignupForm.NOT_BLANK_MESSAGE)
-	private String role;
+    @NotNull
+	private Role role;
 
     public SignupForm() {
     }
@@ -45,11 +51,11 @@ public class SignupForm {
         this.name = name;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }
