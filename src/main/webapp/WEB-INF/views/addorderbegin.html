@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to Hermes Transport Company website!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">Header</div>
+<div class="container">
+    <div class="text-center">
+        <h1>New order</h1>
+        <p class="lead">
+            Please, specify the order:
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-upper coupled-borders fixed-min-height">
+        <form id="addorder" action="#" th:object="${orderForm}" th:action="${flowExecutionUrl}" method="post">
+            <fieldset>
+                <legend>Enter parameters of a client:</legend>
+                <div class="form-group" th:classappend="${#fields.hasErrors('clientName')}? 'has-error'">
+                    <label for="clientName" class="col-lg-2 control-label">clientName</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="clientName" placeholder="Client name" th:field="*{clientName}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}">Incorrect client name</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" id="proceed" name="_eventId_proceed">Proceed</button>
+                        <button type="submit" id="proceed" value="proceed" action="proceed" class="btn btn-default btn-next-cargo">Add cargo</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="col-lg-offset-2 col-lg-10">
+            <button type="submit" id="proceed" value="proceed" action="proceed" class="btn btn-default btn-next-cargo">Add cargo</button>
+            <input type="submit" name="_eventId_proceed" value="proceed" />
+        </div>
+    </div>
+    <div class="form-narrow-trans">
+        <div class="btn btn-success btn-lg coupled-lower full-width btn-finish-order"></div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</body>
+</html>

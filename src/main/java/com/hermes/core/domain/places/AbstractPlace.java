@@ -19,6 +19,19 @@ public abstract class AbstractPlace extends AbstractPersistentObject {
         return name;
     }
 
+    public String getPlaceType(){
+        if(this instanceof BasicCompanyBase){
+            return "Company base";
+        }
+        if(this instanceof BasicClientBase){
+            return "Client base";
+        }
+        if(this instanceof BasicFix){
+            return "Fix";
+        }
+        throw new IllegalStateException();
+    }
+
     AbstractPlace() {
     }
 

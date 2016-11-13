@@ -19,6 +19,7 @@ public abstract class AbstractCargo extends AbstractPersistentObject {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ORDER_ID", referencedColumnName = "ID")
+//    @Cascade({CascadeType.SAVE_UPDATE})
     protected AbstractOrder order;
 
     @ManyToOne(fetch=FetchType.EAGER)
@@ -43,6 +44,22 @@ public abstract class AbstractCargo extends AbstractPersistentObject {
         this.order = order;
         this.weight = weight;
         this.volume = volume;
+    }
+
+    public AbstractOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(AbstractOrder order) {
+        this.order = order;
+    }
+
+    public String getCargoType(){
+        if(this instanceof Box){
+            return "Box";
+        }else{
+            throw new IllegalStateException();
+        }
     }
 
     public AbstractHaul getHaul() {

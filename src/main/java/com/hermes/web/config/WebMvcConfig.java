@@ -1,5 +1,7 @@
 package com.hermes.web.config;
 
+import com.hermes.web.addorder.AddOrderFlowHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
+import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -29,6 +33,9 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 
     private static final String RESOURCES_LOCATION = "/resources/";
     private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
+
+    @Autowired
+    private WebFlowConfig webFlowConfig;
 
     @Override
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
@@ -65,7 +72,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
         return templateEngine;
     }
 
-    @Bean
+    @Bean(name = "ThymeleafViewResolver")
     public ViewResolver viewResolver() {
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setTemplateEngine(templateEngine());
@@ -99,5 +106,26 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
         String favicon() {
             return "forward:/resources/images/favicon.ico";
         }
+    }
+
+    @Bean
+    public FlowHandlerMapping flowHandlerMapping() {
+        FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
+        handlerMapping.setOrder(-1);
+        handlerMapping.setFlowRegistry(this.webFlowConfig.flowRegistry());
+        return handlerMapping;
+    }
+
+    @Bean
+    public FlowHandlerAdapter flowHandlerAdapter() {
+        FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
+        handlerAdapter.setFlowExecutor(this.webFlowConfig.flowExecutor());
+        handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
+        return handlerAdapter;
+    }
+
+    @Bean(name="addorder")
+    public AddOrderFlowHandler AddOrderFlowHandler() {
+        return new AddOrderFlowHandler();
     }
 }

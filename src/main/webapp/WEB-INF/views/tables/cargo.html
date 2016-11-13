@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currently added cargo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header">Header</div>-->
+<div class="container">
+    <div class="text-center">
+        <h1>View cargo</h1>
+        <p class="lead">
+            All currently added cargo:
+        </p>
+    </div>
+    <div class="form-narrow form-extended form-horizontal coupled-borders no-padding">
+        <table class="full-width hermes-table">
+            <tr class="high-row">
+                <th class="centered">Cargo type</th>
+                <th class="centered">Cargo weight</th>
+                <th class="centered">Cargo volume</th>
+                <th class="centered">Client name</th>
+            </tr>
+            <th:block th:each="cargoItem : ${cargo}">
+                <tr class="high-row">
+                    <td th:text="${cargoItem.cargoType}">Cargo type</td>
+                    <td th:text="${cargoItem.weight}">Cargo weight</td>
+                    <td th:text="${cargoItem.volume}">Cargo volume</td>
+                    <td th:text="${cargoItem.order.clientName}">Client name</td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</body>
+</html>

@@ -19,23 +19,15 @@ import java.util.List;
 @DiscriminatorValue("ABSTRACT_ORDER")
 public abstract class AbstractOrder extends AbstractPersistentObject {
 
-    @Column(name="BUSINESS_ID", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long businessId;
-
     @Column(name="CLIENT_NAME", nullable = false)
     String clientName;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    @Cascade({CascadeType.ALL})
+    @Cascade({CascadeType.SAVE_UPDATE})
     List<AbstractCargo> cargoList;
 
     AbstractOrder() {
         this.cargoList = new ArrayList<>();
-    }
-
-    public Long getBusinessId() {
-        return businessId;
     }
 
     public String getClientName() {
@@ -46,13 +38,21 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
         this.clientName = clientName;
     }
 
+    public int getSize() {
+        return cargoList.size();
+    }
+
+//    public void setSize(int size) {
+//        this.size = size;
+//    }
+
     public List<AbstractCargo> getCargoList() {
         List<AbstractCargo> detachedList = new ArrayList<>(cargoList.size());
         detachedList.addAll(cargoList);
         return detachedList;
     }
 
-    public void addCargo(AbstractCargo cargo){
+    void addCargo(AbstractCargo cargo){
         cargoList.add(cargo);
     }
 

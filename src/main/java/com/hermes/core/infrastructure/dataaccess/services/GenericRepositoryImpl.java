@@ -52,18 +52,16 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public <T> List findAllBySpecification(Specification<T>...specification) {
-        Criteria criteria = currentSession().createCriteria(specification[0].getType());
+        Criteria criteria = currentSession().createCriteria(repositoryType);
         for(Specification<T> detail : specification) {
             criteria.add(detail.toCriterion());
         }
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 
     @Override
     public List<T> getAll() {
-        System.out.println("Inside repository");
-        List<T> results = currentSession().createCriteria(repositoryType).list();
-        System.out.println("Resulting size: "+results.size());
-        return currentSession().createCriteria(repositoryType).list();
+        return findAllBySpecification();
     }
 }

@@ -2,6 +2,7 @@ package com.hermes.core.domain.orders;
 
 
 import com.hermes.core.domain.cargo.CargoFactory;
+import com.hermes.core.domain.cargo.CargoType;
 
 /**
  * Created by ivan on 02.11.16.
@@ -11,24 +12,20 @@ public class OrderBuilder {
     private AbstractOrder order;
     private CargoFactory cargoFactory;
 
-    private OrderBuilder() {
+    OrderBuilder() {
         order = new BasicOrder();
         cargoFactory = CargoFactory.newCargoFactory(order);
-    }
-
-    public static OrderBuilder newOrderBuilder() {
-        return new OrderBuilder();
     }
 
     public void setClientName(String clientName) {
         order.setClientName(clientName);
     }
 
-    public void addCargo(String cargoType, double weight, double volume){
+    public void addCargo(CargoType cargoType, double weight, double volume){
         order.addCargo(cargoFactory.createCargo(cargoType, weight, volume));
     }
 
-    public void addCargo(String cargoType, double weight, double volume, int amount){
+    public void addCargo(CargoType cargoType, double weight, double volume, int amount){
         for(int i = 0; i < amount; i++){
             addCargo(cargoType, weight, volume);
         }

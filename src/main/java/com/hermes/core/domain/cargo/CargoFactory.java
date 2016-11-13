@@ -20,12 +20,19 @@ public class CargoFactory {
         return new CargoFactory(order);
     }
 
-    public AbstractCargo createCargo(String cargoType, double weight, double volume){
-        switch (cargoType.toLowerCase()){
-            case "box":
-                return new Box(order, weight, volume);
+    public AbstractCargo createCargo(CargoType cargoType, double weight, double volume){
+        AbstractCargo cargo = null;
+        switch (cargoType){
+            case BOX:
+                cargo = new Box(order, weight, volume);
+                break;
+            case BARREL:
+                cargo = new Box(order, weight, volume);
+                break;
             default:
                 throw new IllegalArgumentException("Incorrect cargo type");
         }
+        cargo.setOrder(order);
+        return cargo;
     }
 }

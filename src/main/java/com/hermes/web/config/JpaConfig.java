@@ -5,6 +5,7 @@ import com.hermes.core.domain.accounts.AbstractAccount;
 import com.hermes.core.domain.accounts.BasicAccount;
 import com.hermes.core.domain.accounts.RepresentedAccount;
 import com.hermes.core.domain.cargo.AbstractCargo;
+import com.hermes.core.domain.cargo.Box;
 import com.hermes.core.domain.employees.AbstractDriver;
 import com.hermes.core.domain.employees.AbstractEmployee;
 import com.hermes.core.domain.hauls.AbstractHaul;
@@ -12,6 +13,7 @@ import com.hermes.core.domain.milestones.AbstractMilestone;
 import com.hermes.core.domain.milestones.FinishMilestone;
 import com.hermes.core.domain.milestones.StartMilestone;
 import com.hermes.core.domain.orders.AbstractOrder;
+import com.hermes.core.domain.orders.BasicOrder;
 import com.hermes.core.domain.places.*;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
 import com.zaxxer.hikari.HikariConfig;
@@ -116,8 +118,10 @@ class JpaConfig {
         sessionBuilder.addAnnotatedClasses(AbstractVehicle.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractCargo.class);
+        sessionBuilder.addAnnotatedClasses(Box.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractOrder.class);
+        sessionBuilder.addAnnotatedClasses(BasicOrder.class);
 
         System.out.println("Factory built!");
         return sessionBuilder.buildSessionFactory();

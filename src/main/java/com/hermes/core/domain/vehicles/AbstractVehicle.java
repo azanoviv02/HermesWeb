@@ -19,10 +19,18 @@ public abstract class AbstractVehicle extends AbstractPersistentObject {
     @OneToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER, mappedBy = "assignedVehicle")
     protected AbstractHaul currentHaul;
 
-    public AbstractHaul getCurrentHaul() {
-        return currentHaul;
+    AbstractVehicle() {
     }
 
-    AbstractVehicle() {
+    public VehicleType getVehicleType() {
+        if(this instanceof BasicTruck){
+            return VehicleType.BASIC_TRUCK;
+        }else{
+            throw new IllegalStateException();
+        }
+    }
+
+    public AbstractHaul getCurrentHaul() {
+        return currentHaul;
     }
 }

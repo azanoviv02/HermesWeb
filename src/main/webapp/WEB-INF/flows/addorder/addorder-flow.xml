@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+      	http://www.springframework.org/schema/webflow
+      	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <on-start>
+        <evaluate expression="addOrderFormFactory.createOrderForm()" result="flowScope.orderForm" />
+    <!--</on-start>-->
+
+    <!--<on-start>-->
+        <evaluate expression="orderForm.newCargoForm()" result="flowScope.cargoForm" />
+    </on-start>
+
+    <view-state id="start" view="addorderbegin" model="orderForm">
+        <transition on="submit" to="middle"/>
+        <transition on="proceed" to="middle"/>
+    </view-state>
+
+    <view-state id="middle" view="addorderend" model="cargoForm">
+        <transition on="nextsubtype" to="middle"/>
+        <transition on="addorder" to="end"/>
+    </view-state>
+
+    <end-state id="end"/>
+
+</flow>

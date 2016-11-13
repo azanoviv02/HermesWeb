@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to Hermes Transport Company website!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">Header</div>
+<div class="container">
+    <div class="text-center">
+        <h1>New order</h1>
+        <p class="lead">
+            Please, specify the order:
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-upper coupled-borders fixed-min-height">
+        <div th:object="${cargoForm}">
+            <fieldset>
+                <legend>Enter parameters of a new cargo subtype:</legend>
+                <div class="form-group" th:classappend="${#fields.hasErrors('cargoType')}? 'has-error'">
+                    <label for="role" class="col-lg-2 control-label">cargoType</label>
+                    <div class="col-lg-10">
+                        <select id="segmentoSel" class="form-control" th:field="*{cargoType}">
+                            <option value="" selected="selected" id="role">Cargo cargoType</option>
+                            <option th:each="segmento : ${T(com.hermes.core.domain.cargo.CargoType).values()}" th:value="${segmento}" th:text="${segmento}">Cargo Type</option>
+                            <!--<option value="" selected="selected" id="role">Type</option>-->
+                            <!--<option value="box">Box</option>-->
+                            <!--<option value="barrel">Barrel</option>-->
+                            <!--<option value="fragilebox">Fragile box</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('weight')}? 'has-error'">
+                    <label for="weight" class="col-lg-2 control-label">Weight</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="weight" placeholder="Weight" th:field="*{weight}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Incorrect weight</span>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('volume')}? 'has-error'">
+                    <label for="volume" class="col-lg-2 control-label">Volume</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="volume" placeholder="Volume" th:field="*{volume}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}">Incorrect volume</span>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('amount')}? 'has-error'">
+                    <label for="amount" class="col-lg-2 control-label">Amount</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="amount" placeholder="Amount" th:field="*{amount}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Incorrect amount</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" id="nextsubtype" value="nextsubtype" class="btn btn-default btn-next-cargo">Next subtype</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="form-narrow-trans">
+        <button type="submit" id="addorder" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Add order</a>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</body>
+</html>

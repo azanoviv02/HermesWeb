@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currently added orders</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header">Header</div>-->
+<div class="container">
+    <div class="text-center">
+        <h1>View orders</h1>
+        <p class="lead">
+            All currently add orders:
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders no-padding">
+        <table class="full-width hermes-table">
+            <tr class="high-row">
+                <th class="centered">Client name</th>
+                <th class="centered">Order size</th>
+            </tr>
+            <th:block th:each="order : ${orders}">
+                    <tr class="high-row">
+                        <td th:text="${order.clientName}">Clients name</td>
+                        <td th:text="${order.size}">Order size</td>
+                    </tr>
+            </th:block>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</body>
+</html>
