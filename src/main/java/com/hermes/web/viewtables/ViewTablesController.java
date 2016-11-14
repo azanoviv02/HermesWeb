@@ -1,10 +1,7 @@
 package com.hermes.web.viewtables;
 
 
-import com.hermes.core.infrastructure.dataaccess.services.AccountService;
-import com.hermes.core.infrastructure.dataaccess.services.CargoService;
-import com.hermes.core.infrastructure.dataaccess.services.OrderService;
-import com.hermes.core.infrastructure.dataaccess.services.PlaceService;
+import com.hermes.core.infrastructure.dataaccess.services.*;
 import com.hermes.core.infrastructure.dataaccess.specifications.accounts.AccountWhich;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +15,8 @@ public class ViewTablesController {
     private static final String ACCOUNTS_VIEW_NAME = "tables/accounts";
     private static final String ORDERS_VIEW_NAME = "tables/orders";
     private static final String CARGO_VIEW_NAME = "tables/cargo";
+    private static final String VEHICLES_VIEW_NAME = "tables/vehicles";
+    private static final String EMPLOYEES_VIEW_NAME = "tables/employees";
 
     @Autowired
     PlaceService placeService;
@@ -29,6 +28,10 @@ public class ViewTablesController {
     OrderService orderService;
     @Autowired
     CargoService cargoService;
+    @Autowired
+    VehicleService vehicleService;
+    @Autowired
+    EmployeeService employeeService;
 
     @RequestMapping(value = "places")
     public String PLACESs(Model model) {
@@ -56,5 +59,21 @@ public class ViewTablesController {
     public String viewCargo(Model model) {
         model.addAttribute("cargo", cargoService.getAll());
         return CARGO_VIEW_NAME;
+    }
+
+    @RequestMapping(value = "vehicles")
+    public String viewVehicles(Model model) {
+        model.addAttribute("vehicles", vehicleService.getAll());
+        return VEHICLES_VIEW_NAME;
+    }
+
+    @RequestMapping(value = "employees")
+    public String viewEmployees(Model model) {
+//        List<AbstractEmployee> results = employeeService.getAll();
+//        if(results == null || results.isEmpty()){
+//            throw new IllegalStateException("Can't be empty");
+//        }
+        model.addAttribute("employees", employeeService.getAll());
+        return EMPLOYEES_VIEW_NAME;
     }
 }

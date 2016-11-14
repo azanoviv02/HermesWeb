@@ -1,12 +1,10 @@
 package com.hermes.web.addvehicle;
 
 
-import com.hermes.core.domain.places.AbstractPlace;
-import com.hermes.core.domain.places.PlaceFactory;
-import com.hermes.core.domain.places.PlaceType;
-import com.hermes.core.infrastructure.dataaccess.services.PlaceService;
-import com.hermes.core.infrastructure.dataaccess.specifications.places.PlaceWhich;
-import com.hermes.web.addplace.AddPlaceForm;
+import com.hermes.core.domain.vehicles.AbstractVehicle;
+import com.hermes.core.domain.vehicles.VehicleFactory;
+import com.hermes.core.domain.vehicles.VehicleType;
+import com.hermes.core.infrastructure.dataaccess.services.VehicleService;
 import com.hermes.web.web.MessageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,49 +20,37 @@ import javax.validation.Valid;
 @Controller
 public class AddVehicleController {
 
-    private static final String ADDPLACE_VIEW_NAME = "addplace/addplace";
+    private static final String ADDVEHICLE_VIEW_NAME = "addvehicle/addvehicle";
 
     @Autowired
-    PlaceService placeService;
+    VehicleService vehicleService;
     @Autowired
-    PlaceFactory placeFactory;
-    @Autowired
-    PlaceWhich placeWhich;
+    VehicleFactory vehicleFactory;
 
-    @RequestMapping(value = "addplace")
-    public String addPlace(Model model) {
-        model.addAttribute(new AddPlaceForm());
-        return ADDPLACE_VIEW_NAME;
+    @RequestMapping(value = "addvehicle")
+    public String addVehicle(Model model) {
+        model.addAttribute(new AddVehicleForm());
+        return ADDVEHICLE_VIEW_NAME;
     }
 
-    @RequestMapping(value = "addplace", method = RequestMethod.POST)
-    public String addPlace(@Valid @ModelAttribute AddPlaceForm addPlaceForm, Errors errors, RedirectAttributes ra) {
+    @RequestMapping(value = "addvehicle", method = RequestMethod.POST)
+    public String addVehicle(@Valid @ModelAttribute AddVehicleForm addVehicleForm, Errors errors, RedirectAttributes ra) {
         if (errors.hasErrors()) {
-            return ADDPLACE_VIEW_NAME;
+            return ADDVEHICLE_VIEW_NAME;
         }
 
-        if(placeService.contains(placeWhich.hasName(addPlaceForm.getName()))){
-            return ADDPLACE_VIEW_NAME;
-        }
-
-        AbstractPlace newPlace = createPlace(addPlaceForm);
-        placeService.add(newPlace);
-        MessageHelper.addSuccessAttribute(ra, "addplace.success");
+        AbstractVehicle newVehicle = createVehicle(addVehicleForm);
+        vehicleService.add(newVehicle);
+        MessageHelper.addSuccessAttribute(ra, "addvehicle.success");
 
         return "redirect:/";
     }
     
-    AbstractPlace createPlace(AddPlaceForm addPlaceForm){
-        String name = addPlaceForm.getName();
-        PlaceType placeType = addPlaceForm.getPlaceType();
-
-        switch (placeType){
-            case BASIC_COMPANY_BASE:
-                return placeFactory.createBasicCompanyBase(name);
-            case BASIC_CLIENT_BASE:
-                return placeFactory.createBasicClientBase(name);
-            case BASIC_FIX:
-                return placeFactory.createBasicFix(name);
+    AbstractVehicle createVehicle(AddVehicleForm addVehicleForm){
+        VehicleType vehicleType = addVehicleForm.getVehicleType();
+        switch (vehicleType){
+            case BASIC_TRUCK:
+                return vehicleFactory.createBasicTruck();
             default:
                 throw new IllegalStateException();
         }

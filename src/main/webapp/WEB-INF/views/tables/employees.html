@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Currently added places</title>
+    <title>Currently added employees</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
     <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
@@ -9,24 +9,26 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--<div th:replace="fragments/header :: header">Header</div>-->
+<!--<div th:reemployee="fragments/header :: header">Header</div>-->
 <div class="container">
     <div class="text-center">
-        <h1>View places</h1>
+        <h1>View employees</h1>
         <p class="lead">
-            All currently registered places:
+            All currently registered employees:
         </p>
     </div>
-    <div class="form-narrow form-horizontal coupled-borders no-padding">
+    <div class="form-narrow form-extended form-horizontal coupled-borders no-padding">
         <table class="full-width hermes-table centered-headers high-row">
             <tr>
-                <th>Place name</th>
-                <th>Place type</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Salary</th>
             </tr>
-            <th:block th:each="place : ${places}">
+            <th:block th:each="employee : ${employees}">
                 <tr>
-                    <td th:text="${place.name}">Place name</td>
-                    <td th:text="${place.placeType}">Place type</td>
+                    <td th:text="${employee.name}">Name</td>
+                    <td th:text="${employee.employeeType}">Job</td>
+                    <td th:text="${employee.salary}">Salary</td>
                 </tr>
             </th:block>
         </table>

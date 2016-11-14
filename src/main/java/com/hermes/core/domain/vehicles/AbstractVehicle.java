@@ -22,9 +22,9 @@ public abstract class AbstractVehicle extends AbstractPersistentObject {
     AbstractVehicle() {
     }
 
-    public VehicleType getVehicleType() {
+    public String getVehicleType() {
         if(this instanceof BasicTruck){
-            return VehicleType.BASIC_TRUCK;
+            return "Basic truck";
         }else{
             throw new IllegalStateException();
         }

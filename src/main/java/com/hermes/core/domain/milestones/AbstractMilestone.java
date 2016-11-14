@@ -25,6 +25,13 @@ public abstract class AbstractMilestone extends AbstractPersistentObject {
     @Column(name="DATE", nullable = false)
     private Calendar date;
 
+    AbstractMilestone() {
+    }
+
+    AbstractMilestone(Calendar date) {
+        this.date = date;
+    }
+
     public Calendar getDate() {
         return date;
     }
@@ -35,12 +42,5 @@ public abstract class AbstractMilestone extends AbstractPersistentObject {
 
     public void setHaul(AbstractHaul haul) {
         this.haul = haul;
-    }
-
-    AbstractMilestone() {
-    }
-
-    public AbstractMilestone(Calendar date) {
-        this.date = date;
     }
 }

@@ -17,15 +17,15 @@ public class FinishMilestone extends AbstractMilestone {
     @JoinColumn(name="PLACE_ID", referencedColumnName = "ID")
     private AbstractBase finishBase;
 
-    public AbstractPlace getPlace(){
-        return finishBase;
+    FinishMilestone() {
     }
 
-    public FinishMilestone() {
-    }
-
-    public FinishMilestone(Calendar date, AbstractBase finishBase) {
+    FinishMilestone(Calendar date, AbstractBase finishBase) {
         super(date);
         this.finishBase = finishBase;
+    }
+
+    public AbstractPlace getPlace(){
+        return finishBase;
     }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currently added employees</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--<div th:reemployee="fragments/header :: header">Header</div>-->
+<form class="" method="post" th:action="@{/addhaul}">
+<div class="container">
+    <div class="text-center">
+        <h1>Plan haul</h1>
+        <p class="lead">
+            Please, specify all haul info:
+        </p>
+    </div>
+    <div class="form-narrow form-extended form-horizontal coupled-borders no-padding">
+        <fieldset>
+        <h3 class="centered smaller-margin">Available drivers</h3>
+        <table class="full-width hermes-table centered-headers high-row">
+            <tr>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Salary</th>
+                <th>Choose</th>
+            </tr>
+            <th:block th:each="employee : ${employees}">
+                <tr>
+                    <td th:text="${employee.name}">Name</td>
+                    <td th:text="${employee.employeeType}">Job</td>
+                    <td th:text="${employee.salary}">Salary</td>
+                    <td>
+                        <input type="radio" th:field="*{haulBuilderLocal.assignedDriver}" th:value="${employee}" />
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <div class="form-narrow-trans">
+        <button type="submit" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Add haul</button>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</form>
+</body>
+</html>

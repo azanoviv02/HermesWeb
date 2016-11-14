@@ -62,6 +62,8 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public List<T> getAll() {
-        return findAllBySpecification();
+        Criteria criteria = currentSession().createCriteria(repositoryType);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
     }
 }

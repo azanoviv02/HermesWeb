@@ -8,7 +8,9 @@ import com.hermes.core.domain.cargo.AbstractCargo;
 import com.hermes.core.domain.cargo.Box;
 import com.hermes.core.domain.employees.AbstractDriver;
 import com.hermes.core.domain.employees.AbstractEmployee;
+import com.hermes.core.domain.employees.BasicDriver;
 import com.hermes.core.domain.hauls.AbstractHaul;
+import com.hermes.core.domain.hauls.BasicHaul;
 import com.hermes.core.domain.milestones.AbstractMilestone;
 import com.hermes.core.domain.milestones.FinishMilestone;
 import com.hermes.core.domain.milestones.StartMilestone;
@@ -16,6 +18,7 @@ import com.hermes.core.domain.orders.AbstractOrder;
 import com.hermes.core.domain.orders.BasicOrder;
 import com.hermes.core.domain.places.*;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
+import com.hermes.core.domain.vehicles.BasicTruck;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.SessionFactory;
@@ -111,11 +114,14 @@ class JpaConfig {
         sessionBuilder.addAnnotatedClasses(FinishMilestone.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractHaul.class);
+        sessionBuilder.addAnnotatedClasses(BasicHaul.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractEmployee.class);
         sessionBuilder.addAnnotatedClasses(AbstractDriver.class);
+        sessionBuilder.addAnnotatedClasses(BasicDriver.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractVehicle.class);
+        sessionBuilder.addAnnotatedClasses(BasicTruck.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractCargo.class);
         sessionBuilder.addAnnotatedClasses(Box.class);

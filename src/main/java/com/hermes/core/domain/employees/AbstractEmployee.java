@@ -59,4 +59,12 @@ public abstract class AbstractEmployee extends AbstractPersistentObject {
     public void setSalary(int salary) {
         this.salary = salary;
     }
+
+    public String getEmployeeType() {
+        if(this instanceof BasicDriver){
+            return "Basic Driver";
+        }else {
+            throw new IllegalStateException();
+        }
+    }
 }

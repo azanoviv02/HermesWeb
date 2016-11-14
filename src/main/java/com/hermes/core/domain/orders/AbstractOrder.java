@@ -23,7 +23,7 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
     String clientName;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    @Cascade({CascadeType.SAVE_UPDATE})
+    @Cascade({CascadeType.ALL})
     List<AbstractCargo> cargoList;
 
     AbstractOrder() {
