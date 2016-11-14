@@ -15,4 +15,8 @@ public class PlaceWhich extends AbstractWhich<AbstractPlace>{
     public HasName hasName(String name){
         return new HasName(name);
     }
+
+    public HasType hasType(Class specifiedClass){
+        return new HasType(specifiedClass);
+    }
 }

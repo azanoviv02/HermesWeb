@@ -5,7 +5,7 @@ import com.hermes.core.domain.AbstractPersistentObject;
 import com.hermes.core.domain.hauls.AbstractHaul;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by ivan on 26.10.16.
@@ -17,22 +17,27 @@ import java.util.Calendar;
 @DiscriminatorValue("ABSTRACT_MILESTONE")
 public abstract class AbstractMilestone extends AbstractPersistentObject {
 
-    @OneToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "HAUL_ID", referencedColumnName = "ID")
     protected AbstractHaul haul;
 
     @Temporal(TemporalType.DATE)
     @Column(name="DATE", nullable = false)
-    private Calendar date;
+//    @Cascade({CascadeType.ALL})
+    private Date date;
 
     AbstractMilestone() {
     }
 
-    AbstractMilestone(Calendar date) {
+    AbstractMilestone(Date date) {
+        if(date == null){
+            System.out.println("No date!");
+        }
+        System.out.println(date.toString());
         this.date = date;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
     

@@ -16,7 +16,7 @@ import javax.persistence.*;
 @DiscriminatorValue("ABSTRACT_VEHICLE")
 public abstract class AbstractVehicle extends AbstractPersistentObject {
 
-    @OneToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER, mappedBy = "assignedVehicle")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "assignedVehicle")
     protected AbstractHaul currentHaul;
 
     AbstractVehicle() {

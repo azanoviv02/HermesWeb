@@ -3,7 +3,6 @@ package com.hermes.core.domain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -17,9 +16,9 @@ public abstract class AbstractPersistentObject implements Serializable{
     @Column(name="ID")
     private UUID id;
 
-    @Version
-    @Column(name="VERSION")
-    private Long version = null;
+//    @Version
+//    @Column(name="VERSION")
+//    private Long version = null;
 
     @Column(name = "ENTITY_TYPE", length = 20, insertable = false, updatable = false)
     private String entityType;
@@ -36,13 +35,14 @@ public abstract class AbstractPersistentObject implements Serializable{
         this.id = id;
     }
 
-    public Long getVersion() {
-        return version;
-    }
+//    public Long getVersion() {
+//        return version;
+//    }
 
-    private void setVersion(Long version) {
-        this.version = version;
-    }
+//    private void setVersion(Long version) {
+//        System.out.println("Version updated to: "+version.toString());
+//        this.version = version;
+//    }
 
 //    public void incrementVersion(){
 //        this.version = Long.valueOf(this.version+1);
@@ -87,7 +87,7 @@ public abstract class AbstractPersistentObject implements Serializable{
                 + "[id=" + id + "]";
     }
 
-    public boolean isCreation() {
-        return version == null;
-    }
+//    public boolean isCreation() {
+//        return version == null;
+//    }
 }

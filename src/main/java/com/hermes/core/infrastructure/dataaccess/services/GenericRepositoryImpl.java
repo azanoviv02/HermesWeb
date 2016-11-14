@@ -6,6 +6,7 @@ import com.hermes.core.infrastructure.dataaccess.specifications.Specification;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +28,9 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public void add(T entity) {
+//        System.out.println("Saving: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
         currentSession().save(entity);
+//        System.out.println("Saved: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
     }
 
     @Override
@@ -37,7 +40,9 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public void update(T entity) {
+//        System.out.println("Updating: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
         currentSession().saveOrUpdate(entity);
+//        System.out.println("Updateded: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
     }
 
     @Override
@@ -47,7 +52,10 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public T find(UUID key) {
-        return (T) currentSession().get(repositoryType, key);
+        Criteria criteria = currentSession().createCriteria(repositoryType);
+        criteria.add(Restrictions.eq("id", key));
+        //criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return repositoryType.cast(criteria.list().get(0));
     }
 
     @Override

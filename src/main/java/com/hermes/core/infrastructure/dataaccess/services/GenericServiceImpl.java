@@ -2,6 +2,7 @@ package com.hermes.core.infrastructure.dataaccess.services;
 
 import com.hermes.core.domain.AbstractPersistentObject;
 import com.hermes.core.infrastructure.dataaccess.specifications.Specification;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,8 @@ import javax.persistence.NonUniqueResultException;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+
+import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
 
 public class GenericServiceImpl<T extends AbstractPersistentObject> implements GenericService<T>{
 
@@ -20,13 +23,13 @@ public class GenericServiceImpl<T extends AbstractPersistentObject> implements G
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
     public void add(T entity) {
         repository.add(entity);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
     public void addAll(Collection<T> allEntities) {
         for(T entity : allEntities){
             repository.add(entity);
@@ -34,14 +37,14 @@ public class GenericServiceImpl<T extends AbstractPersistentObject> implements G
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
     public void update(T entity) {
         repository.update(entity);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void saveOrUpdate(T entity) {
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
+    public void addOrUpdate(T entity) {
         repository.saveOrUpdate(entity);
     }
 
@@ -66,7 +69,7 @@ public class GenericServiceImpl<T extends AbstractPersistentObject> implements G
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.READ_COMMITTED)
     public T getFirst(Specification<T>... specification) {
         List<T> results = repository.findAllBySpecification(specification);
         switch (results.size()) {
@@ -78,34 +81,34 @@ public class GenericServiceImpl<T extends AbstractPersistentObject> implements G
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.READ_COMMITTED)
     public List<T> getEvery(Specification<T>... specification) {
         List<T> results = repository.findAllBySpecification(specification);
         return results;
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.READ_COMMITTED)
     public boolean contains(Specification<T>... specification) {
         List<T> results = repository.findAllBySpecification(specification);
         return (results.size() != 0);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.READ_COMMITTED)
     public List<T> getAll() {
         System.out.println("Inside service");
         return repository.getAll();
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
     public void remove(T entity) {
         repository.remove(entity);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
     public void remove(UUID id) {
         T foundEntity = repository.find(id);
         repository.remove(foundEntity);

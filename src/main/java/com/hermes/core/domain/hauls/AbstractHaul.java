@@ -6,8 +6,6 @@ import com.hermes.core.domain.employees.AbstractDriver;
 import com.hermes.core.domain.milestones.FinishMilestone;
 import com.hermes.core.domain.milestones.StartMilestone;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,21 +22,21 @@ import java.util.List;
 public abstract class AbstractHaul extends AbstractPersistentObject {
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "haul")
-    @Cascade({CascadeType.ALL})
+//    @Cascade({CascadeType.ALL})
     StartMilestone start;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "haul")
-    @Cascade({CascadeType.ALL})
+//    @Cascade({CascadeType.ALL})
     FinishMilestone finish;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DRIVER_ID", referencedColumnName = "ID")
-    @Cascade({CascadeType.SAVE_UPDATE})
+//    @Cascade({CascadeType.SAVE_UPDATE})
     AbstractDriver assignedDriver;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "VEHICLE_ID", referencedColumnName = "ID")
-    @Cascade({CascadeType.SAVE_UPDATE})
+//    @Cascade({CascadeType.SAVE_UPDATE})
     AbstractVehicle assignedVehicle;
 
     @OneToMany(mappedBy = "haul")
@@ -50,7 +48,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
 
     public StartMilestone getStart() {
         if(start == null){
-            throw new IllegalStateException();
+            throw new IllegalStateException("No start");
         }
         return start;
     }
@@ -61,7 +59,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
 
     public FinishMilestone getFinish() {
         if(finish == null){
-            throw new IllegalStateException();
+            throw new IllegalStateException("No finish");
         }
         return finish;
     }
@@ -72,7 +70,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
 
     public AbstractDriver getAssignedDriver() {
         if(assignedDriver == null){
-            throw new IllegalStateException();
+            throw new IllegalStateException("No driver");
         }
         return assignedDriver;
     }
@@ -83,7 +81,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
 
     public AbstractVehicle getAssignedVehicle() {
         if(assignedVehicle == null){
-            throw new IllegalStateException();
+            throw new IllegalStateException("No vehicle");
         }
         return assignedVehicle;
     }
@@ -94,7 +92,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
 
     public List<AbstractCargo> getCargoList() {
         if(cargoList == null || cargoList.isEmpty()){
-            throw new IllegalStateException();
+            throw new IllegalStateException("No cargo");
         }
         return cargoList;
     }

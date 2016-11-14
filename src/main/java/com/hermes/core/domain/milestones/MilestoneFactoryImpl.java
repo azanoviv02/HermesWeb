@@ -1,9 +1,9 @@
 package com.hermes.core.domain.milestones;
 
-import com.hermes.core.domain.places.AbstractBase;
+import com.hermes.core.domain.places.AbstractPlace;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by ivan on 14.11.16.
@@ -15,12 +15,12 @@ public class MilestoneFactoryImpl implements MilestoneFactory {
     }
 
     @Override
-    public StartMilestone createStartMilestone(Calendar date, AbstractBase startBase){
-        return new StartMilestone(date, startBase);
+    public StartMilestone createStartMilestone(Date date, AbstractPlace startPlace){
+        return new StartMilestone(date, startPlace);
     }
 
     @Override
-    public FinishMilestone createFinishMilestone(Calendar date, AbstractBase finishBase){
-        return new FinishMilestone(date, finishBase);
+    public FinishMilestone createFinishMilestone(Date date, AbstractPlace finishPlace){
+        return new FinishMilestone(date, finishPlace);
     }
 }

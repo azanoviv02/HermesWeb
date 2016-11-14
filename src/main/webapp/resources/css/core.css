@@ -52,6 +52,10 @@ body {
     border-top: 0;
 }
 
+.no-upper-margin{
+    margin-upper: 0;
+}
+
 .coupled-borders {
     border-right: 7px solid #5cb85c;
     border-left: 7px solid #5cb85c;

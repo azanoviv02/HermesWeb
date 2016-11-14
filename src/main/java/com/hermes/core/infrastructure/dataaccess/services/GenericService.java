@@ -21,7 +21,7 @@ public interface GenericService<T extends AbstractPersistentObject> {
     void addAll(Collection<T> allEntities);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    void saveOrUpdate(T entity);
+    void addOrUpdate(T entity);
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     T getOne(Specification<T>... specification);

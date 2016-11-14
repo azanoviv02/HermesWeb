@@ -1,10 +1,9 @@
 package com.hermes.core.domain.milestones;
 
-import com.hermes.core.domain.places.AbstractBase;
 import com.hermes.core.domain.places.AbstractPlace;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by ivan on 31.10.16.
@@ -15,17 +14,17 @@ public class StartMilestone extends AbstractMilestone {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="PLACE_ID", referencedColumnName = "ID")
-    private AbstractBase startBase;
+    private AbstractPlace startPlace;
 
-    StartMilestone() {
+    private StartMilestone() {
     }
 
-    StartMilestone(Calendar date, AbstractBase startBase) {
+    StartMilestone(Date date, AbstractPlace startPlace) {
         super(date);
-        this.startBase = startBase;
+        this.startPlace = startPlace;
     }
 
     public AbstractPlace getPlace(){
-        return startBase;
+        return startPlace;
     }
 }

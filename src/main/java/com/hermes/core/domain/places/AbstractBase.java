@@ -16,10 +16,10 @@ import java.util.List;
 @DiscriminatorValue("ABSTRACT_BASE")
 public abstract class AbstractBase extends AbstractPlace {
 
-    @OneToMany(mappedBy = "startBase")
+    @OneToMany(mappedBy = "startPlace")
     protected List<StartMilestone> milestonesFrom;
 
-    @OneToMany(mappedBy = "finishBase")
+    @OneToMany(mappedBy = "finishPlace")
     protected List<FinishMilestone> milestonesTo;
 
     AbstractBase() {

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @DiscriminatorValue("ABSTRACT_DRIVER")
 public abstract class AbstractDriver extends AbstractEmployee {
 
-    @OneToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER, mappedBy = "assignedDriver")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "assignedDriver")
     protected AbstractHaul currentHaul;
 
     @Embedded

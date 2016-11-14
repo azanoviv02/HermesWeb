@@ -20,7 +20,61 @@
     </div>
     <div class="form-narrow form-extended form-horizontal coupled-borders no-padding">
         <fieldset>
-        <h3 class="centered smaller-margin">Available drivers</h3>
+        <h3 class="centered smaller-margin">Choose start place</h3>
+        <table class="full-width hermes-table centered-headers high-row">
+            <tr>
+                <th>Place name</th>
+                <th>Place type</th>
+                <th>Choose</th>
+            </tr>
+            <th:block th:each="place : ${places}">
+                <tr>
+                    <td th:text="${place.name}">Place name</td>
+                    <td th:text="${place.placeType}">Place type</td>
+                    <td>
+                        <input type="radio" th:field="*{addHaulForm.startPlaceId}" th:value="${place.id}" />
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div class="buffer"></div>
+        <h3 class="centered smaller-margin">Choose start date</h3>
+        <input class="form-control" type="date"
+               th:value="${addHaulForm.startDate}"
+               th:field="${addHaulForm.startDate}"
+               id="startDate"/>
+
+        <div class="buffer"></div>
+
+        <h3 class="centered smaller-margin">Choose finish place</h3>
+        <table class="full-width hermes-table centered-headers high-row">
+            <tr>
+                <th>Place name</th>
+                <th>Place type</th>
+                <th>Choose</th>
+            </tr>
+            <th:block th:each="place : ${places}">
+                <tr>
+                    <td th:text="${place.name}">Place name</td>
+                    <td th:text="${place.placeType}">Place type</td>
+                    <td>
+                        <input type="radio" th:field="*{addHaulForm.finishPlaceId}" th:value="${place.id}" />
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+
+        <div class="buffer"></div>
+
+        <h3 class="centered smaller-margin">Choose finish date</h3>
+        <input class="form-control" type="date"
+               th:value="${addHaulForm.finishDate}"
+               th:field="${addHaulForm.finishDate}"
+               id="finishDate"/>
+
+        <div class="buffer"></div>
+
+        <h3 class="centered smaller-margin">Choose driver</h3>
         <table class="full-width hermes-table centered-headers high-row">
             <tr>
                 <th>Name</th>
@@ -34,14 +88,56 @@
                     <td th:text="${employee.employeeType}">Job</td>
                     <td th:text="${employee.salary}">Salary</td>
                     <td>
-                        <input type="radio" th:field="*{haulBuilderLocal.assignedDriver}" th:value="${employee}" />
+                        <input type="radio" th:field="*{addHaulForm.assignedDriverId}" th:value="${employee.id}" />
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+
+        <div class="buffer"></div>
+
+        <h3 class="centered smaller-margin">Choose vehicles</h3>
+        <table class="full-width hermes-table centered-headers high-row">
+            <tr>
+                <th>Vehicle Type</th>
+                <th>Choose</th>
+            </tr>
+            <th:block th:each="vehicle : ${vehicles}">
+                <tr>
+                    <td th:text="${vehicle.vehicleType}">Vehicle type</td>
+                    <td>
+                        <input type="radio" th:field="*{addHaulForm.assignedVehicleId}" th:value="${vehicle.id}" />
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+
+        <div class="buffer"></div>
+
+        <h3 class="centered smaller-margin">Select cargo</h3>
+        <table class="full-width hermes-table">
+            <tr class="high-row">
+                <th class="centered">Cargo type</th>
+                <th class="centered">Cargo weight</th>
+                <th class="centered">Cargo volume</th>
+                <th class="centered">Client name</th>
+                <th class="centered">Choose</th>
+            </tr>
+            <th:block th:each="cargoItem : ${cargo}">
+                <tr class="high-row">
+                    <td th:text="${cargoItem.cargoType}">Cargo type</td>
+                    <td th:text="${cargoItem.weight}">Cargo weight</td>
+                    <td th:text="${cargoItem.volume}">Cargo volume</td>
+                    <td th:text="${cargoItem.order.clientName}">Client name</td>
+                    <td>
+                        <input type="checkbox" th:field="*{addHaulForm.cargoIdList}" th:value="${cargoItem.id}" />
                     </td>
                 </tr>
             </th:block>
         </table>
     </div>
     <div class="form-narrow-trans">
-        <button type="submit" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Add haul</button>
+        <button type="submit" class="btn btn-success btn-lg no-upper-margin full-width btn-finish-order">Add haul</button>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
 </div>
