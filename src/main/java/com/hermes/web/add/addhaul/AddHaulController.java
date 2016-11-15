@@ -12,6 +12,7 @@ import com.hermes.core.infrastructure.dataaccess.services.*;
 import com.hermes.core.infrastructure.dataaccess.specifications.employees.EmployeeWhich;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,6 +57,7 @@ public class AddHaulController {
         return ADDHAUL_VIEW_NAME;
     }
 
+    @Transactional
     @RequestMapping(value = "addhaul", method = RequestMethod.POST)
     public String addHaul(@Valid @ModelAttribute AddHaulForm addHaulForm, Errors errors, RedirectAttributes ra) {
 

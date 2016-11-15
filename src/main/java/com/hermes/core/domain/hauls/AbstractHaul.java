@@ -6,6 +6,8 @@ import com.hermes.core.domain.employees.AbstractDriver;
 import com.hermes.core.domain.milestones.FinishMilestone;
 import com.hermes.core.domain.milestones.StartMilestone;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,11 +24,11 @@ import java.util.List;
 public abstract class AbstractHaul extends AbstractPersistentObject {
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "haul")
-//    @Cascade({CascadeType.ALL})
+    @Cascade({CascadeType.ALL})
     StartMilestone start;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "haul")
-//    @Cascade({CascadeType.ALL})
+    @Cascade({CascadeType.ALL})
     FinishMilestone finish;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -40,6 +42,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
     AbstractVehicle assignedVehicle;
 
     @OneToMany(mappedBy = "haul")
+    @Cascade({CascadeType.SAVE_UPDATE})
     List<AbstractCargo> cargoList;
 
     AbstractHaul() {

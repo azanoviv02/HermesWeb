@@ -10,7 +10,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header">Header</div>
-<form class="" method="post" th:action="@{/addorderdumb}" th:object="${addOrderForm}">
+<form class="" method="post" th:action="@{/addorderdumb}">
 <div class="container">
     <div class="text-center">
         <h1>New order</h1>
@@ -21,11 +21,11 @@
     <div class="form-narrow form-horizontal coupled-upper coupled-borders fixed-min-height">
         <fieldset>
             <legend>Enter parameters of an order:</legend>
-            <div class="form-group" th:classappend="${#fields.hasErrors('clientName')}? 'has-error'">
+            <div class="form-group" th:classappend="${#fields.hasErrors('addOrderForm.clientName')}? 'has-error'">
                 <label for="clientName" class="col-lg-2 control-label">Client</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="clientName" placeholder="Client name" th:field="*{clientName}" />
-                    <span class="help-block" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}">Incorrect client name</span>
+                    <input type="text" class="form-control" id="clientName" placeholder="Client name" th:field="*{addOrderForm.clientName}" />
+                    <span class="help-block" th:if="${#fields.hasErrors('addOrderForm.clientName')}" th:errors="*{addOrderForm.clientName}">Incorrect client name</span>
                 </div>
             </div>
             <div class="form-group">
@@ -46,11 +46,50 @@
                            id="finishDate"/>
                 </div>
             </div>
+            <div class="form-group">
+                <h3 class="centered smaller-margin">Start place</h3>
+                <table class="full-width hermes-table centered-headers high-row">
+                    <tr>
+                        <th>Place name</th>
+                        <th>Place type</th>
+                        <th>Choose</th>
+                    </tr>
+                    <th:block th:each="place : ${places}">
+                        <tr>
+                            <td th:text="${place.name}">Place name</td>
+                            <td th:text="${place.placeType}">Place type</td>
+                            <td>
+                                <input type="radio" th:field="*{addOrderForm.startPlaceId}" th:value="${place.id}" />
+                            </td>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+            <div class="form-group">
+                <h3 class="centered smaller-margin">Finish place</h3>
+                <table class="full-width hermes-table centered-headers high-row">
+                    <tr>
+                        <th>Place name</th>
+                        <th>Place type</th>
+                        <th>Choose</th>
+                    </tr>
+                    <th:block th:each="place : ${places}">
+                        <tr>
+                            <td th:text="${place.name}">Place name</td>
+                            <td th:text="${place.placeType}">Place type</td>
+                            <td>
+                                <input type="radio" th:field="*{addOrderForm.finishPlaceId}" th:value="${place.id}" />
+                            </td>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+            <div class="buffer"></div>
             <legend>Enter parameters of a cargo subtype:</legend>
-            <div class="form-group" th:classappend="${#fields.hasErrors('cargoType')}? 'has-error'">
+            <div class="form-group" th:classappend="${#fields.hasErrors('addOrderForm.cargoType')}? 'has-error'">
                 <label for="role" class="col-lg-2 control-label">Type</label>
                 <div class="col-lg-10">
-                    <select id="segmentoSel" class="form-control" th:field="*{cargoType}">
+                    <select id="segmentoSel" class="form-control" th:field="*{addOrderForm.cargoType}">
                         <option value="" selected="selected" id="role">Cargo type</option>
                         <option th:each="segmento : ${T(com.hermes.core.domain.cargo.CargoType).values()}" th:value="${segmento}" th:text="${segmento}">Cargo Type</option>
                         <!--<option value="" selected="selected" id="role">Type</option>-->
@@ -60,25 +99,25 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('weight')}? 'has-error'">
+            <div class="form-group" th:classappend="${#fields.hasErrors('addOrderForm.weight')}? 'has-error'">
                 <label for="weight" class="col-lg-2 control-label">Weight</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="weight" placeholder="Weight" th:field="*{weight}" />
-                    <span class="help-block" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Incorrect weight</span>
+                    <input type="text" class="form-control" id="weight" placeholder="Weight" th:field="*{addOrderForm.weight}" />
+                    <span class="help-block" th:if="${#fields.hasErrors('addOrderForm.weight')}" th:errors="*{addOrderForm.weight}">Incorrect weight</span>
                 </div>
             </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('volume')}? 'has-error'">
+            <div class="form-group" th:classappend="${#fields.hasErrors('addOrderForm.volume')}? 'has-error'">
                 <label for="volume" class="col-lg-2 control-label">Volume</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="volume" placeholder="Volume" th:field="*{volume}"/>
-                    <span class="help-block" th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}">Incorrect volume</span>
+                    <input type="text" class="form-control" id="volume" placeholder="Volume" th:field="*{addOrderForm.volume}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('addOrderForm.volume')}" th:errors="*{addOrderForm.volume}">Incorrect volume</span>
                 </div>
             </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('amount')}? 'has-error'">
+            <div class="form-group" th:classappend="${#fields.hasErrors('addOrderForm.amount')}? 'has-error'">
                 <label for="amount" class="col-lg-2 control-label">Amount</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="amount" placeholder="Amount" th:field="*{amount}"/>
-                    <span class="help-block" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Incorrect amount</span>
+                    <input type="text" class="form-control" id="amount" placeholder="Amount" th:field="*{addOrderForm.amount}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('addOrderForm.amount')}" th:errors="*{addOrderForm.amount}">Incorrect amount</span>
                 </div>
             </div>
         </fieldset>

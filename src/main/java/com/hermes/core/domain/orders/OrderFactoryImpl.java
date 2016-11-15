@@ -2,6 +2,7 @@ package com.hermes.core.domain.orders;
 
 import com.hermes.core.domain.cargo.CargoFactoryImpl;
 import com.hermes.core.domain.cargo.CargoType;
+import com.hermes.core.domain.places.AbstractPlace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,8 @@ public class OrderFactoryImpl implements OrderFactory{
     public AbstractOrder createBasicOrder(String clientName,
                                           Date startDate,
                                           Date finishDate,
+                                          AbstractPlace startPlace,
+                                          AbstractPlace finishPlace,
                                           CargoType cargoType,
                                           double weight,
                                           double volume,
@@ -32,6 +35,8 @@ public class OrderFactoryImpl implements OrderFactory{
         orderBuilder.setClientName(clientName);
         orderBuilder.setStartDate(startDate);
         orderBuilder.setFinishDate(finishDate);
+        orderBuilder.setStartPlace(startPlace);
+        orderBuilder.setFinishPlace(finishPlace);
         orderBuilder.addCargo(cargoType, weight, volume, amount);
         return orderBuilder.getOrder();
     }

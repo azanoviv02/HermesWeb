@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by ivan on 11.11.16.
@@ -23,6 +24,12 @@ public class AddOrderForm implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date finishDate;
+
+    @NotNull
+    private UUID startPlaceId;
+
+    @NotNull
+    private UUID finishPlaceId;
 
     @NotNull
     private CargoType cargoType;
@@ -61,6 +68,22 @@ public class AddOrderForm implements Serializable {
 
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public UUID getStartPlaceId() {
+        return startPlaceId;
+    }
+
+    public void setStartPlaceId(UUID startPlaceId) {
+        this.startPlaceId = startPlaceId;
+    }
+
+    public UUID getFinishPlaceId() {
+        return finishPlaceId;
+    }
+
+    public void setFinishPlaceId(UUID finishPlaceId) {
+        this.finishPlaceId = finishPlaceId;
     }
 
     public CargoType getCargoType() {

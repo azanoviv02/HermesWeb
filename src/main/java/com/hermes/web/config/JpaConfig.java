@@ -99,6 +99,8 @@ class JpaConfig {
     public SessionFactory getSessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 
+        sessionBuilder.setProperty("hibernate.show_sql", "true");
+
         sessionBuilder.addAnnotatedClasses(AbstractAccount.class);
         sessionBuilder.addAnnotatedClasses(BasicAccount.class);
         sessionBuilder.addAnnotatedClasses(RepresentedAccount.class);

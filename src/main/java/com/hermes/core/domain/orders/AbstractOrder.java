@@ -2,6 +2,7 @@ package com.hermes.core.domain.orders;
 
 import com.hermes.core.domain.AbstractPersistentObject;
 import com.hermes.core.domain.cargo.AbstractCargo;
+import com.hermes.core.domain.places.AbstractPlace;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -31,8 +32,18 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
     @Column(name="FINISH_DATE", nullable = false)
     Date finishDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "START_PLACE_ID")
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    AbstractPlace startPlace;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FINISH_PLACE_ID")
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    AbstractPlace finishPlace;
+
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    @Cascade({CascadeType.ALL})
+    @Cascade({CascadeType.SAVE_UPDATE})
     List<AbstractCargo> cargoList;
 
     AbstractOrder() {
@@ -63,13 +74,25 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
         this.finishDate = finishDate;
     }
 
+    public AbstractPlace getStartPlace() {
+        return startPlace;
+    }
+
+    void setStartPlace(AbstractPlace startPlace) {
+        this.startPlace = startPlace;
+    }
+
+    public AbstractPlace getFinishPlace() {
+        return finishPlace;
+    }
+
+    void setFinishPlace(AbstractPlace finishPlace) {
+        this.finishPlace = finishPlace;
+    }
+
     public int getSize() {
         return cargoList.size();
     }
-
-//    public void setSize(int size) {
-//        this.size = size;
-//    }
 
     public List<AbstractCargo> getCargoList() {
         List<AbstractCargo> detachedList = new ArrayList<>(cargoList.size());

@@ -3,6 +3,7 @@ package com.hermes.core.domain.orders;
 
 import com.hermes.core.domain.cargo.CargoFactory;
 import com.hermes.core.domain.cargo.CargoType;
+import com.hermes.core.domain.places.AbstractPlace;
 
 import java.util.Date;
 
@@ -24,12 +25,20 @@ public class OrderBuilder {
         order.setClientName(clientName);
     }
 
-    void setStartDate(Date startDate) {
+    public void setStartDate(Date startDate) {
         order.setStartDate(startDate);
     }
 
-    void setFinishDate(Date finishDate) {
+    public void setFinishDate(Date finishDate) {
         order.setFinishDate(finishDate);
+    }
+
+    public void setStartPlace(AbstractPlace startPlace) {
+        order.setStartPlace(startPlace);
+    }
+
+    public void setFinishPlace(AbstractPlace finishPlace) {
+        order.setFinishPlace(finishPlace);
     }
 
     public void addCargo(CargoType cargoType, double weight, double volume){
