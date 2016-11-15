@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to Hermes Transport Company website!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">Header</div>
+<div class="container">
+    <div class="text-center">
+        <h1>SuperUser</h1>
+        <p class="lead">
+            You can do everything you want!
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders wide-link-buttons">
+            <h2 class="centered smaller-margin">Admin</h2>
+            <p>
+                <a href="/addaccount" th:href="@{/addaccount}" class="btn btn-success btn-lg">Add new account</a>
+            </p>
+            <p>
+                <a href="/accounts" th:href="@{/accounts}" class="btn btn-success btn-lg">View accounts</a>
+            </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders wide-link-buttons">
+        <h2 class="centered smaller-margin">Informer</h2>
+        <p>
+            <a href="/addplace" th:href="@{/addplace}" class="btn btn-success btn-lg">Add new place</a>
+        </p>
+        <p>
+            <a href="/addvehicle" th:href="@{/addvehicle}" class="btn btn-success btn-lg">Add new vehicle</a>
+        </p>
+        <p>
+            <a href="/places" th:href="@{/places}" class="btn btn-success btn-lg">View places</a>
+        </p>
+        <p>
+            <a href="/vehicles" th:href="@{/vehicles}" class="btn btn-success btn-lg">View vehicles</a>
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders wide-link-buttons">
+        <h2 class="centered smaller-margin">Manager</h2>
+        <p>
+            <a href="/addorderdumb" th:href="@{/addorderdumb}" class="btn btn-success btn-lg">Add new order</a>
+        </p>
+        <p>
+            <a href="/orders" th:href="@{/orders}" class="btn btn-success btn-lg">View orders</a>
+        </p>
+        <p>
+            <a href="/cargo" th:href="@{/cargo}" class="btn btn-success btn-lg">View cargo</a>
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders wide-link-buttons">
+        <h2 class="centered smaller-margin">Planner</h2>
+        <p>
+            <a href="/addhaul" th:href="@{/addhaul}" class="btn btn-success btn-lg">Plan new haul</a>
+        </p>
+        <p>
+            <a href="/orders" th:href="@{/orders}" class="btn btn-success btn-lg">View orders</a>
+        </p>
+        <p>
+            <a href="/cargo" th:href="@{/cargo}" class="btn btn-success btn-lg">View cargo</a>
+        </p>
+        <p>
+            <a href="/places" th:href="@{/places}" class="btn btn-success btn-lg">View places</a>
+        </p>
+        <p>
+            <a href="/vehicles" th:href="@{/vehicles}" class="btn btn-success btn-lg">View vehicles</a>
+        </p>
+        <p>
+            <a href="/employees" th:href="@{/employees}" class="btn btn-success btn-lg">View employees</a>
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer">2013 The Static Templates</div>
+</div>
+</body>
+</html>

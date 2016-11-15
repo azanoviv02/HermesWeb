@@ -3,36 +3,10 @@ package com.hermes.core.domain.cargo;
 import com.hermes.core.domain.orders.AbstractOrder;
 
 /**
- * Created by ivan on 02.11.16.
+ * Created by ivan on 15.11.16.
  */
-public class CargoFactory {
+public interface CargoFactory {
+    void setOrder(AbstractOrder order);
 
-    private AbstractOrder order;
-
-    public CargoFactory(AbstractOrder order) {
-        this.order = order;
-    }
-
-    public static CargoFactory newCargoFactory (AbstractOrder order){
-        if(order.size() != 0){
-            throw new IllegalArgumentException("Can't create factory for existing orders");
-        }
-        return new CargoFactory(order);
-    }
-
-    public AbstractCargo createCargo(CargoType cargoType, double weight, double volume){
-        AbstractCargo cargo = null;
-        switch (cargoType){
-            case BOX:
-                cargo = new Box(order, weight, volume);
-                break;
-            case BARREL:
-                cargo = new Box(order, weight, volume);
-                break;
-            default:
-                throw new IllegalArgumentException("Incorrect cargo type");
-        }
-        cargo.setOrder(order);
-        return cargo;
-    }
+    abstract AbstractCargo createCargo(CargoType cargoType, double weight, double volume);
 }

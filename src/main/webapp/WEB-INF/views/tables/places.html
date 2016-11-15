@@ -9,6 +9,7 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/header :: header">Header</div>
 <!--<div th:replace="fragments/header :: header">Header</div>-->
 <div class="container">
     <div class="text-center">
@@ -17,7 +18,7 @@
             All currently registered places:
         </p>
     </div>
-    <div class="form-narrow form-horizontal coupled-borders no-padding">
+    <div class="form-narrow form-horizontal coupled-borders coupled-upper no-padding">
         <table class="full-width hermes-table centered-headers high-row">
             <tr>
                 <th>Place name</th>
@@ -30,6 +31,9 @@
                 </tr>
             </th:block>
         </table>
+    </div>
+    <div class="form-narrow-trans">
+        <a href="/" th:href="@{/}" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Back</a>
     </div>
     <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
 </div>

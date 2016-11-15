@@ -5,6 +5,7 @@ import com.hermes.core.domain.accounts.AbstractAccount;
 import com.hermes.core.domain.accounts.BasicAccount;
 import com.hermes.core.domain.accounts.RepresentedAccount;
 import com.hermes.core.domain.cargo.AbstractCargo;
+import com.hermes.core.domain.cargo.Barrel;
 import com.hermes.core.domain.cargo.Box;
 import com.hermes.core.domain.employees.AbstractDriver;
 import com.hermes.core.domain.employees.AbstractEmployee;
@@ -125,6 +126,7 @@ class JpaConfig {
 
         sessionBuilder.addAnnotatedClasses(AbstractCargo.class);
         sessionBuilder.addAnnotatedClasses(Box.class);
+        sessionBuilder.addAnnotatedClasses(Barrel.class);
 
         sessionBuilder.addAnnotatedClasses(AbstractOrder.class);
         sessionBuilder.addAnnotatedClasses(BasicOrder.class);

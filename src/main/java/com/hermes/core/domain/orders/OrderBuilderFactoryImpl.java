@@ -1,5 +1,7 @@
 package com.hermes.core.domain.orders;
 
+import com.hermes.core.domain.cargo.CargoFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,8 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderBuilderFactoryImpl implements OrderBuilderFactory {
 
+    @Autowired
+    CargoFactory cargoFactory;
+
     @Override
     public OrderBuilder createOrderBuilder(){
-        return new OrderBuilder();
+        return new OrderBuilder(cargoFactory);
     }
 }

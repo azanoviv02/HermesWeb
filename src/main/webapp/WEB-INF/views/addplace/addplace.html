@@ -9,6 +9,7 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/header :: header">Header</div>
 <!--<div th:replace="fragments/header :: header">Header</div>-->
 <form class="" method="post" th:action="@{/addplace}" th:object="${addPlaceForm}">
     <!--/* Show general error message when form contains errors */-->
@@ -17,10 +18,12 @@
     </th:block>
     <div class="container">
         <div class="text-center">
-            <!--<h1>New place</h1>-->
-            <!--<p class="lead">-->
-                <!--Please, specify the place info:-->
-            <!--</p>-->
+            <div class="text-center">
+                <h1>Add place</h1>
+                <p class="lead">
+                    Please, specify all place info:
+                </p>
+            </div>
         </div>
         <div class="form-narrow form-horizontal coupled-upper coupled-borders">
             <fieldset>

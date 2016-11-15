@@ -12,9 +12,10 @@ public class OrderBuilder {
     private AbstractOrder order;
     private CargoFactory cargoFactory;
 
-    OrderBuilder() {
-        order = new BasicOrder();
-        cargoFactory = CargoFactory.newCargoFactory(order);
+    public OrderBuilder(CargoFactory cargoFactory) {
+        this.cargoFactory = cargoFactory;
+        this.order = new BasicOrder();
+        this.cargoFactory.setOrder(this.order);
     }
 
     public void setClientName(String clientName) {

@@ -130,3 +130,7 @@ tr:nth-child(even) {
 .smaller-margin{
     margin-bottom: 10px;
 }
+
+div.wide-link-buttons a{
+    width: 100%;
+}

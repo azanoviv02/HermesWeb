@@ -17,7 +17,7 @@ public class HomeController {
 	@Autowired
 	private AccountService accountService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String index(Principal principal) {
 
 //        List<AbstractAccount> allAccounts = accountService.getAll();

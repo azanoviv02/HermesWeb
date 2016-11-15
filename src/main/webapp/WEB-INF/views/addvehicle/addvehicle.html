@@ -9,6 +9,7 @@
     <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/header :: header">Header</div>
 <!--<div th:revehicle="fragments/header :: header">Header</div>-->
 <form class="" method="post" th:action="@{/addvehicle}" th:object="${addVehicleForm}">
     <!--/* Show general error message when form contains errors */-->
@@ -17,7 +18,7 @@
     </th:block>
     <div class="container">
         <div class="text-center">
-            <!--<h1>New vehicle</h1>-->
+            <h1>Add vehicle</h1>
             <!--<p class="lead">-->
             <!--Please, specify the vehicle info:-->
             <!--</p>-->

@@ -53,6 +53,7 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
     }
 
     void addCargo(AbstractCargo cargo){
+        cargo.setOrder(this);
         cargoList.add(cargo);
     }
 

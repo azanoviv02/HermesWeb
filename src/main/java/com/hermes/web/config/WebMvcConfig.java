@@ -1,6 +1,6 @@
 package com.hermes.web.config;
 
-import com.hermes.web.addorder.AddOrderFlowHandler;
+import com.hermes.web.add.addorderflow.AddOrderFlowHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
