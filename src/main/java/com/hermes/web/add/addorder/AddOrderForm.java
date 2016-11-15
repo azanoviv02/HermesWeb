@@ -2,9 +2,11 @@ package com.hermes.web.add.addorder;
 
 
 import com.hermes.core.domain.cargo.CargoType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by ivan on 11.11.16.
@@ -13,6 +15,14 @@ public class AddOrderForm implements Serializable {
 
     @NotNull
     private String clientName;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    private Date startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    private Date finishDate;
 
     @NotNull
     private CargoType cargoType;
@@ -35,6 +45,22 @@ public class AddOrderForm implements Serializable {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
     }
 
     public CargoType getCargoType() {

@@ -7,6 +7,7 @@ import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,14 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
     @Column(name="CLIENT_NAME", nullable = false)
     String clientName;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name="START_DATE", nullable = false)
+    Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="FINISH_DATE", nullable = false)
+    Date finishDate;
+
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     List<AbstractCargo> cargoList;
@@ -34,8 +43,24 @@ public abstract class AbstractOrder extends AbstractPersistentObject {
         return clientName;
     }
 
-    public void setClientName(String clientName) {
+    void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getFinishDate() {
+        return finishDate;
+    }
+
+    void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
     }
 
     public int getSize() {

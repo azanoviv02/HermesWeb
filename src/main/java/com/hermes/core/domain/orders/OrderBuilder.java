@@ -4,6 +4,8 @@ package com.hermes.core.domain.orders;
 import com.hermes.core.domain.cargo.CargoFactory;
 import com.hermes.core.domain.cargo.CargoType;
 
+import java.util.Date;
+
 /**
  * Created by ivan on 02.11.16.
  */
@@ -20,6 +22,14 @@ public class OrderBuilder {
 
     public void setClientName(String clientName) {
         order.setClientName(clientName);
+    }
+
+    void setStartDate(Date startDate) {
+        order.setStartDate(startDate);
+    }
+
+    void setFinishDate(Date finishDate) {
+        order.setFinishDate(finishDate);
     }
 
     public void addCargo(CargoType cargoType, double weight, double volume){

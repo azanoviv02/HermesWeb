@@ -5,6 +5,8 @@ import com.hermes.core.domain.cargo.CargoType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * Created by ivan on 15.11.16.
  */
@@ -18,10 +20,18 @@ public class OrderFactoryImpl implements OrderFactory{
     OrderBuilderFactory orderBuilderFactory;
 
     @Override
-    public AbstractOrder createBasicOrder(String clientName, CargoType cargoType, double weight, double volume, int amount){
+    public AbstractOrder createBasicOrder(String clientName,
+                                          Date startDate,
+                                          Date finishDate,
+                                          CargoType cargoType,
+                                          double weight,
+                                          double volume,
+                                          int amount){
         OrderBuilder orderBuilder = orderBuilderFactory.createOrderBuilder();
 
         orderBuilder.setClientName(clientName);
+        orderBuilder.setStartDate(startDate);
+        orderBuilder.setFinishDate(finishDate);
         orderBuilder.addCargo(cargoType, weight, volume, amount);
         return orderBuilder.getOrder();
     }

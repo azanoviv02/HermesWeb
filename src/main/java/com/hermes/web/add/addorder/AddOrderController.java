@@ -49,6 +49,8 @@ public class AddOrderController {
     AbstractOrder createOrder(AddOrderForm addOrderForm) {
         return orderFactory.createBasicOrder(
                 addOrderForm.getClientName(),
+                addOrderForm.getStartDate(),
+                addOrderForm.getFinishDate(),
                 addOrderForm.getCargoType(),
                 addOrderForm.getWeight(),
                 addOrderForm.getVolume(),

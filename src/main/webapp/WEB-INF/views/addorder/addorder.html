@@ -20,12 +20,30 @@
     </div>
     <div class="form-narrow form-horizontal coupled-upper coupled-borders fixed-min-height">
         <fieldset>
-            <legend>Enter parameters of a client:</legend>
+            <legend>Enter parameters of an order:</legend>
             <div class="form-group" th:classappend="${#fields.hasErrors('clientName')}? 'has-error'">
                 <label for="clientName" class="col-lg-2 control-label">Client</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="clientName" placeholder="Client name" th:field="*{clientName}" />
                     <span class="help-block" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}">Incorrect client name</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="startDate" class="col-lg-2 control-label">Start date</label>
+                <div class="col-lg-10">
+                    <input class="form-control" type="date"
+                           th:value="${addOrderForm.startDate}"
+                           th:field="${addOrderForm.startDate}"
+                           id="startDate"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="finishDate" class="col-lg-2 control-label">Finish date</label>
+                <div class="col-lg-10">
+                    <input class="form-control" type="date"
+                           th:value="${addOrderForm.finishDate}"
+                           th:field="${addOrderForm.finishDate}"
+                           id="finishDate"/>
                 </div>
             </div>
             <legend>Enter parameters of a cargo subtype:</legend>
