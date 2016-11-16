@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface GenericRepository<T extends AbstractPersistentObject> {
 
+    void persist(T entity);
+
     public void add(T entity) ;
 
     public void saveOrUpdate(T entity) ;

@@ -1,12 +1,10 @@
 package com.hermes.core.domain.hauls;
 
 import com.hermes.core.domain.cargo.AbstractCargo;
-import com.hermes.core.domain.employees.AbstractDriver;
-import com.hermes.core.domain.milestones.FinishMilestone;
-import com.hermes.core.domain.milestones.MilestoneFactory;
-import com.hermes.core.domain.milestones.StartMilestone;
+import com.hermes.core.domain.employees.AbstractEmployee;
 import com.hermes.core.domain.places.AbstractPlace;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
+import com.hermes.core.infrastructure.dataaccess.services.HaulService;
 
 import java.util.Date;
 import java.util.List;
@@ -16,37 +14,26 @@ import java.util.List;
  */
 public class HaulBuilder {
 
-    private MilestoneFactory milestoneFactory;
     private AbstractHaul newHaul;
+    private HaulService haulService;
 
-    HaulBuilder() {
-    }
-
-    HaulBuilder(MilestoneFactory milestoneFactory) {
-        this.milestoneFactory = milestoneFactory;
-        newHaul = new BasicHaul();
-    }
-
-    public void setStart(StartMilestone start) {
-        newHaul.setStart(start);
+    HaulBuilder(HaulService haulService) {
+        this.newHaul = new BasicHaul();
+        this.haulService = haulService;
+        haulService.add(newHaul);
     }
 
     public void setStart(Date date, AbstractPlace startPlace) {
-        newHaul.setStart(milestoneFactory.createStartMilestone(date, startPlace));
-    }
-
-    public void setFinish(FinishMilestone finish) {
-        newHaul.setFinish(finish);
+        newHaul.setStartDate(date);
+        newHaul.setStartPlace(startPlace);
     }
 
     public void setFinish(Date date, AbstractPlace finishPlace) {
-        if(date == null){
-            System.out.println("No date in builder!");
-        }
-        newHaul.setFinish(milestoneFactory.createFinishMilestone(date, finishPlace));
+        newHaul.setFinishDate(date);
+        newHaul.setFinishPlace(finishPlace);
     }
 
-    public void setAssignedDriver(AbstractDriver assignedDriver) {
+    public void setAssignedDriver(AbstractEmployee assignedDriver) {
         System.out.println(assignedDriver.getName());
         newHaul.setAssignedDriver(assignedDriver);
     }
@@ -66,15 +53,17 @@ public class HaulBuilder {
     }
 
     public AbstractHaul getHaul(){
-//        try{
-            newHaul.getStart();
-            newHaul.getFinish();
+        try{
+            newHaul.getStartDate();
+            newHaul.getFinishDate();
+            newHaul.getStartPlace();
+            newHaul.getFinishPlace();
             newHaul.getAssignedDriver();
             newHaul.getAssignedVehicle();
-            newHaul.getCargoList();
-//        }catch (IllegalStateException ise){
-//            throw new IllegalStateException("Haul is not ready yet!");
-//        }
+//            newHaul.getCargoList();
+        }catch (IllegalStateException ise){
+            throw new IllegalStateException("Haul is not ready yet!");
+        }
         return newHaul;
     }
 }

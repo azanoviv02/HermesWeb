@@ -27,10 +27,13 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
     }
 
     @Override
+    public void persist(T entity) {
+        currentSession().persist(entity);
+    }
+
+    @Override
     public void add(T entity) {
-//        System.out.println("Saving: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
         currentSession().save(entity);
-//        System.out.println("Saved: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
     }
 
     @Override
@@ -40,9 +43,7 @@ public class GenericRepositoryImpl<T extends AbstractPersistentObject> implement
 
     @Override
     public void update(T entity) {
-//        System.out.println("Updating: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
         currentSession().saveOrUpdate(entity);
-//        System.out.println("Updateded: "+repositoryType+" "+entity.getId()+" "+entity.getVersion());
     }
 
     @Override

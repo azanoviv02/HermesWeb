@@ -1,11 +1,10 @@
 package com.hermes.web.add.addhaul;
 
-import com.hermes.core.domain.cargo.AbstractCargo;
-import com.hermes.core.domain.employees.AbstractDriver;
 import com.hermes.core.domain.employees.AbstractEmployee;
 import com.hermes.core.domain.hauls.AbstractHaul;
-import com.hermes.core.domain.hauls.HaulBuilder;
+import com.hermes.core.domain.hauls.BasicHaul;
 import com.hermes.core.domain.hauls.HaulBuilderFactory;
+import com.hermes.core.domain.orders.AbstractOrder;
 import com.hermes.core.domain.places.AbstractPlace;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
 import com.hermes.core.infrastructure.dataaccess.services.*;
@@ -27,6 +26,7 @@ import java.util.List;
 public class AddHaulController {
 
     private static final String ADDHAUL_VIEW_NAME = "addhaul/addhaul";
+    private static final String NOSOMETHING_VIEW_NAME = "addhaul/nosomething";
 
     @Autowired
     HaulService haulService;
@@ -45,28 +45,73 @@ public class AddHaulController {
     VehicleService vehicleService;
 
     @Autowired
-    CargoService cargoService;
+    OrderService orderService;
 
     @RequestMapping(value = "addhaul")
     public String addHaul(Model model) {
-        model.addAttribute("addHaulForm", new AddHaulForm());
-        model.addAttribute("places", placeService.getAll());
-        model.addAttribute("employees", employeeService.getEvery(employeeWhich.isDriver()));
-        model.addAttribute("vehicles", vehicleService.getAll());
-        model.addAttribute("cargo", cargoService.getAll());
+
+        List<AbstractOrder> orders = orderService.getAll();
+        if(orders.isEmpty()){
+            model.addAttribute("entity", "orders");
+            model.addAttribute("message", "Get some orders");
+            return NOSOMETHING_VIEW_NAME;
+        }
+
+        List<AbstractPlace> places = placeService.getAll();
+        if(places.isEmpty()){
+            model.addAttribute("entity", "places");
+            model.addAttribute("message", "Add some places");
+            return NOSOMETHING_VIEW_NAME;
+        }
+
+        List<AbstractVehicle> vehicles = vehicleService.getAll();
+        if(vehicles.isEmpty()){
+            model.addAttribute("entity", "vehicles");
+            model.addAttribute("message", "Add some trucks");
+            return NOSOMETHING_VIEW_NAME;
+        }
+
+        List<AbstractEmployee> employees = employeeService.getEvery(employeeWhich.isDriver());
+        if(employees.isEmpty()){
+            model.addAttribute("entity", "drivers");
+            model.addAttribute("message", "Hire some drivers");
+            return NOSOMETHING_VIEW_NAME;
+        }
+
+        model.addAttribute("addHaulForm", new AddHaulForm());;
+        model.addAttribute("places", places);
+        model.addAttribute("employees", employees);
+        model.addAttribute("vehicles", vehicles);
+        model.addAttribute("orders", orders);
         return ADDHAUL_VIEW_NAME;
     }
+
 
     @Transactional
     @RequestMapping(value = "addhaul", method = RequestMethod.POST)
     public String addHaul(@Valid @ModelAttribute AddHaulForm addHaulForm, Errors errors, RedirectAttributes ra) {
+        if (errors.hasErrors()) {
+            return ADDHAUL_VIEW_NAME;
+        }
 
-        HaulBuilder haulBuilder = haulBuilderFactory.createHaulBuilder();
+        try {
+            AbstractHaul newHaul = createHaul(addHaulForm);
+            haulService.add(newHaul);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
-        List<AbstractEmployee> allEmployees = employeeService.getEvery(employeeWhich.isDriver());
+        return "redirect:/";
+    }
+
+    AbstractHaul createHaul(AddHaulForm addHaulForm){
+
+        AbstractHaul newHaul = new BasicHaul();
+
+        List<AbstractEmployee> allEmployees = employeeService.getAll();
         for(AbstractEmployee employee : allEmployees){
             if(employee.getId().equals(addHaulForm.getAssignedDriverId())){
-                haulBuilder.setAssignedDriver((AbstractDriver) employee);
+                newHaul.setAssignedDriver(employee);
                 break;
             }
         }
@@ -74,65 +119,35 @@ public class AddHaulController {
         List<AbstractVehicle> allVehicles = vehicleService.getAll();
         for(AbstractVehicle vehicle : allVehicles){
             if(vehicle.getId().equals(addHaulForm.getAssignedVehicleId())){
-                haulBuilder.setAssignedVehicle((AbstractVehicle) vehicle);
+                newHaul.setAssignedVehicle(vehicle);
                 break;
             }
-        }
-
-        if(addHaulForm.getFinishDate() == null){
-            System.out.println("Nullo finish date");
-        }
-
-        if(addHaulForm.getStartDate() == null){
-            System.out.println("Nullo start date");
         }
 
         List<AbstractPlace> allPlaces = placeService.getAll();
         for(AbstractPlace place : allPlaces){
             if(place.getId().equals(addHaulForm.getStartPlaceId())){
-                haulBuilder.setStart(addHaulForm.getStartDate(), place);
+                newHaul.setStartPlace(place);
             }
             if(place.getId().equals(addHaulForm.getFinishPlaceId())){
-                haulBuilder.setFinish(addHaulForm.getFinishDate(), place);
+                newHaul.setFinishPlace(place);
             }
         }
 
-        List<AbstractCargo> allCargo = cargoService.getAll();
-        for(AbstractCargo cargoItem : allCargo){
-            if(addHaulForm.getCargoIdList().contains(cargoItem.getId())){
-                haulBuilder.addCargo(cargoItem);
-            }
-        }
+        newHaul.setStartDate(addHaulForm.getStartDate());
+        newHaul.setFinishDate(addHaulForm.getFinishDate());
 
-        System.out.println("Success!");
+        return newHaul;
+    }
 
-        AbstractHaul newHaul = haulBuilder.getHaul();
-
-        haulService.addOrUpdate(newHaul);
-
-//        System.out.println(newHaul.getVersion());
-//
-//        try {
-//            haulService.addOrUpdate(newHaul);
-//        }catch (Exception e){
-//            System.out.println("Bad :(");
-//            System.out.println(newHaul.getId());
-//            System.out.println(newHaul.getVersion());
-//            System.out.println(newHaul.getStart().getVersion());
-//            System.out.println(newHaul.getFinish().getVersion());
-//            System.out.println(e);
-//            try {
-//                haulService.addOrUpdate(newHaul);
-//            }catch(Exception em){
-//                System.out.println("Second time!");
-//                System.out.println(newHaul.getId());
-//                System.out.println(newHaul.getVersion());
-//                System.out.println(newHaul.getStart().getVersion());
-//                System.out.println(newHaul.getFinish().getVersion());
-//                System.out.println(em);
+//    void addCargo(AbstractHaul newHaul, List<UUID> cargoIdList){
+//        for(AbstractCargo cargo : cargoService.getAll()){
+//            if(cargoIdList.contains(cargo.getId())){
+//                System.out.println("Cargo found");
+//                cargo.setHaul(newHaul);
+//                System.out.println("Updating");
+////                cargoService.update(cargo);
 //            }
 //        }
-
-        return "redirect:/";
-    }
+//    }
 }

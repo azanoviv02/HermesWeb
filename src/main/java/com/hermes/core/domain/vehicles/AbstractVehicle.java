@@ -33,4 +33,8 @@ public abstract class AbstractVehicle extends AbstractPersistentObject {
     public AbstractHaul getCurrentHaul() {
         return currentHaul;
     }
+
+    void setCurrentHaul(AbstractHaul currentHaul) {
+        this.currentHaul = currentHaul;
+    }
 }

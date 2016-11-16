@@ -9,10 +9,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
+
 /**
  * Created by ivan on 04.11.16.
  */
 public interface GenericService<T extends AbstractPersistentObject> {
+
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
+    void persist(T entity);
 
     @Transactional(propagation = Propagation.REQUIRED)
     void add(T entity);

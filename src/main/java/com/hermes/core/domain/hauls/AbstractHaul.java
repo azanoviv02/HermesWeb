@@ -3,14 +3,13 @@ package com.hermes.core.domain.hauls;
 import com.hermes.core.domain.AbstractPersistentObject;
 import com.hermes.core.domain.cargo.AbstractCargo;
 import com.hermes.core.domain.employees.AbstractDriver;
-import com.hermes.core.domain.milestones.FinishMilestone;
-import com.hermes.core.domain.milestones.StartMilestone;
+import com.hermes.core.domain.employees.AbstractEmployee;
+import com.hermes.core.domain.places.AbstractPlace;
 import com.hermes.core.domain.vehicles.AbstractVehicle;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,13 +22,23 @@ import java.util.List;
 @DiscriminatorValue("ABSTRACT_HAUL")
 public abstract class AbstractHaul extends AbstractPersistentObject {
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "haul")
-    @Cascade({CascadeType.ALL})
-    StartMilestone start;
+    @Temporal(TemporalType.DATE)
+    @Column(name="START_DATE")
+    Date startDate;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "haul")
-    @Cascade({CascadeType.ALL})
-    FinishMilestone finish;
+    @Temporal(TemporalType.DATE)
+    @Column(name="FINISH_DATE")
+    Date finishDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "START_PLACE_ID")
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    AbstractPlace startPlace;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FINISH_PLACE_ID")
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    AbstractPlace finishPlace;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DRIVER_ID", referencedColumnName = "ID")
@@ -41,45 +50,78 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
 //    @Cascade({CascadeType.SAVE_UPDATE})
     AbstractVehicle assignedVehicle;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="STATUS", nullable = false)
+    HaulStatus haulStatus = HaulStatus.CREATED;
+
     @OneToMany(mappedBy = "haul")
-    @Cascade({CascadeType.SAVE_UPDATE})
+//    @Cascade({CascadeType.PERSIST})
     List<AbstractCargo> cargoList;
+
+
 
     AbstractHaul() {
         cargoList = new ArrayList<AbstractCargo>();
     }
 
-    public StartMilestone getStart() {
-        if(start == null){
-            throw new IllegalStateException("No start");
+    public Date getStartDate() {
+        if(assignedDriver == null){
+            throw new IllegalStateException("No start date");
         }
-        return start;
+        return startDate;
     }
 
-    void setStart(StartMilestone start) {
-        this.start = start;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public FinishMilestone getFinish() {
-        if(finish == null){
-            throw new IllegalStateException("No finish");
+    public Date getFinishDate() {
+        if(assignedDriver == null){
+            throw new IllegalStateException("No finish date");
         }
-        return finish;
+        return finishDate;
     }
 
-    void setFinish(FinishMilestone finish) {
-        this.finish = finish;
+    public void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
     }
 
-    public AbstractDriver getAssignedDriver() {
+    public AbstractPlace getStartPlace() {
+        if(assignedDriver == null){
+            throw new IllegalStateException("No start place");
+        }
+        return startPlace;
+    }
+
+    public void setStartPlace(AbstractPlace startPlace) {
+        this.startPlace = startPlace;
+    }
+
+    public AbstractPlace getFinishPlace() {
+        if(assignedDriver == null){
+            throw new IllegalStateException("No finish place");
+        }
+        return finishPlace;
+    }
+
+    public void setFinishPlace(AbstractPlace finishPlace) {
+        this.finishPlace = finishPlace;
+    }
+
+    public AbstractEmployee getAssignedDriver() {
         if(assignedDriver == null){
             throw new IllegalStateException("No driver");
         }
         return assignedDriver;
     }
 
-    void setAssignedDriver(AbstractDriver assignedDriver) {
-        this.assignedDriver = assignedDriver;
+    public void setAssignedDriver(AbstractEmployee assignedDriver) {
+        if(assignedDriver instanceof AbstractDriver){
+            this.assignedDriver = (AbstractDriver) assignedDriver;
+        }else{
+            throw new IllegalStateException("Only drivers are accepted");
+        }
+
     }
 
     public AbstractVehicle getAssignedVehicle() {
@@ -89,8 +131,19 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
         return assignedVehicle;
     }
 
-    void setAssignedVehicle(AbstractVehicle assignedVehicle) {
+    public void setAssignedVehicle(AbstractVehicle assignedVehicle) {
         this.assignedVehicle = assignedVehicle;
+    }
+
+    public HaulStatus getHaulStatus() {
+        return haulStatus;
+    }
+
+    public void setHaulStatus(HaulStatus haulStatus) {
+        if(haulStatus == HaulStatus.NOTEXISTS){
+            throw new IllegalArgumentException();
+        }
+        this.haulStatus = haulStatus;
     }
 
     public List<AbstractCargo> getCargoList() {
@@ -100,7 +153,7 @@ public abstract class AbstractHaul extends AbstractPersistentObject {
         return cargoList;
     }
 
-    void addCargo(AbstractCargo cargo){
+    public void addCargo(AbstractCargo cargo){
         if(cargoList == null){
             throw new IllegalStateException();
         }

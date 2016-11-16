@@ -49,9 +49,6 @@
         <p>
             <a href="/orders" th:href="@{/orders}" class="btn btn-success btn-lg">View orders</a>
         </p>
-        <p>
-            <a href="/cargo" th:href="@{/cargo}" class="btn btn-success btn-lg">View cargo</a>
-        </p>
     </div>
     <div class="form-narrow form-horizontal coupled-borders wide-link-buttons">
         <h2 class="centered smaller-margin">Planner</h2>
@@ -62,9 +59,6 @@
             <a href="/orders" th:href="@{/orders}" class="btn btn-success btn-lg">View orders</a>
         </p>
         <p>
-            <a href="/cargo" th:href="@{/cargo}" class="btn btn-success btn-lg">View cargo</a>
-        </p>
-        <p>
             <a href="/places" th:href="@{/places}" class="btn btn-success btn-lg">View places</a>
         </p>
         <p>
@@ -72,6 +66,12 @@
         </p>
         <p>
             <a href="/employees" th:href="@{/employees}" class="btn btn-success btn-lg">View employees</a>
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders wide-link-buttons">
+        <h2 class="centered smaller-margin">Master Driver</h2>
+        <p>
+            <a href="/managehauls" th:href="@{/managehauls}" class="btn btn-success btn-lg">Manage hauls</a>
         </p>
     </div>
     <div th:replace="fragments/footer :: footer">2013 The Static Templates</div>

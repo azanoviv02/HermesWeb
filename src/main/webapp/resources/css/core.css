@@ -134,3 +134,36 @@ tr:nth-child(even) {
 div.wide-link-buttons a{
     width: 100%;
 }
+
+div.upper-order-line{
+}
+
+div.lover-order-line{
+}
+
+div.order-info {
+    margin-bottom: 20px;
+    margin-left: 33px;
+    margin-right: 30px;
+}
+
+div.order-info p {
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+}
+
+div.whole-order {
+    margin-top: 20px;
+    border-top: 3px solid darkgrey;
+    border-bottom: 3px solid darkgrey;
+    padding-top: 15px;
+    padding-bottom: 25px;
+    background-color: white;
+    /*-webkit-box-shadow: inset 0px 0px 5px 3px #ccc;*/
+    /*-moz-box-shadow:    inset 0px 0px 5px 3px #ccc;*/
+    /*box-shadow:         inset 0px 0px 5px 3px #ccc;*/
+}
+
+div.contrast-colour{
+}

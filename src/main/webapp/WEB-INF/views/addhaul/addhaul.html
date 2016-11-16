@@ -40,7 +40,7 @@
         </table>
         <div class="buffer"></div>
         <h3 class="centered smaller-margin">Choose start date</h3>
-        <input class="form-control" type="date"
+        <input class="form-control form-narrow-trans" type="date"
                th:value="${addHaulForm.startDate}"
                th:field="${addHaulForm.startDate}"
                id="startDate"/>
@@ -68,7 +68,7 @@
         <div class="buffer"></div>
 
         <h3 class="centered smaller-margin">Choose finish date</h3>
-        <input class="form-control" type="date"
+        <input class="form-control form-narrow-trans" type="date"
                th:value="${addHaulForm.finishDate}"
                th:field="${addHaulForm.finishDate}"
                id="finishDate"/>
@@ -116,26 +116,37 @@
         <div class="buffer"></div>
 
         <h3 class="centered smaller-margin">Select cargo</h3>
-        <table class="full-width hermes-table">
-            <tr class="high-row">
-                <th class="centered">Cargo type</th>
-                <th class="centered">Cargo weight</th>
-                <th class="centered">Cargo volume</th>
-                <th class="centered">Client name</th>
-                <th class="centered">Choose</th>
-            </tr>
-            <th:block th:each="cargoItem : ${cargo}">
-                <tr class="high-row">
-                    <td th:text="${cargoItem.cargoType}">Cargo type</td>
-                    <td th:text="${cargoItem.weight}">Cargo weight</td>
-                    <td th:text="${cargoItem.volume}">Cargo volume</td>
-                    <td th:text="${cargoItem.order.clientName}">Client name</td>
-                    <td>
-                        <input type="checkbox" th:field="*{addHaulForm.cargoIdList}" th:value="${cargoItem.id}" />
-                    </td>
-                </tr>
-            </th:block>
-        </table>
+        <th:block th:each="order : ${orders}">
+            <div class="whole-order">
+                <div class="upper-order-line"></div>
+                <div class="order-info">
+                    <p th:text="|Client: ${order.clientName}|">Clients name</p>
+                    <p th:text="|Start: ${order.startPlace.name}, ${order.startDate}|">Start: Start Base, Date</p>
+                    <p th:text="|Finish: ${order.finishPlace.name}, ${order.finishDate}|">Finish: Finish Base, Date</p>
+                </div>
+                <div class="lover-order-line"></div>
+                <div class="form-horizontal no-padding">
+                    <table class="full-width hermes-table">
+                        <tr class="high-row">
+                            <th class="centered">Cargo type</th>
+                            <th class="centered">Cargo weight</th>
+                            <th class="centered">Cargo volume</th>
+                            <th class="centered">Select</th>
+                        </tr>
+                        <th:block th:each="cargoItem : ${order.cargoList}">
+                            <tr class="high-row">
+                                <td th:text="${cargoItem.cargoType}">Cargo type</td>
+                                <td th:text="${cargoItem.weight}">Cargo weight</td>
+                                <td th:text="${cargoItem.volume}">Cargo volume</td>
+                                <td>
+                                    <input type="checkbox" th:field="*{addHaulForm.cargoIdList}" th:value="${cargoItem.id}" />
+                                </td>
+                            </tr>
+                        </th:block>
+                    </table>
+                </div>
+            </div>
+        </th:block>
     </div>
     <div class="form-narrow-trans">
         <button type="submit" class="btn btn-success btn-lg no-upper-margin full-width btn-finish-order">Add haul</button>

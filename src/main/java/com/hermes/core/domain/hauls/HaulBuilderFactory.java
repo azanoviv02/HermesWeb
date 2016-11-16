@@ -1,6 +1,6 @@
 package com.hermes.core.domain.hauls;
 
-import com.hermes.core.domain.milestones.MilestoneFactory;
+import com.hermes.core.infrastructure.dataaccess.services.HaulService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class HaulBuilderFactory {
 
     @Autowired
-    MilestoneFactory milestoneFactory;
+    HaulService haulService;
 
     public HaulBuilder createHaulBuilder(){
-        return new HaulBuilder(milestoneFactory);
+        return new HaulBuilder(haulService);
     }
 }

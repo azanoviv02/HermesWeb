@@ -23,6 +23,7 @@ import java.util.List;
 public class AddOrderController {
 
     private static final String ADDORDER_VIEW_NAME = "addorder/addorder";
+    private static final String NOPLACES_VIEW_NAME = "addorder/noplaces";
 
     @Autowired
     OrderService orderService;
@@ -34,8 +35,12 @@ public class AddOrderController {
 
     @RequestMapping(value = "addorderdumb")
     public String addOrder(Model model) {
+        List<AbstractPlace> places = placeService.getAll();
+        if(places.size() < 2){
+            return NOPLACES_VIEW_NAME;
+        }
         model.addAttribute("addOrderForm", new AddOrderForm());
-        model.addAttribute("places", placeService.getAll());
+        model.addAttribute("places", places);
         return ADDORDER_VIEW_NAME;
     }
 

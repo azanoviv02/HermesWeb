@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currently added places</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">Header</div>
+<!--<div th:replace="fragments/header :: header">Header</div>-->
+<div class="container">
+    <div class="form-narrow form-horizontal coupled-borders coupled-upper no-padding">
+        <div class="text-center">
+            <h1>Not enough places</h1>
+            <p class="lead">
+                Add some places before you add an order!
+            </p>
+        </div>
+    </div>
+    <div class="form-narrow-trans">
+        <a href="/" th:href="@{/}" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Back</a>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</body>
+</html>

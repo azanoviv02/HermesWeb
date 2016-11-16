@@ -2,8 +2,11 @@ package com.hermes.core.domain.places;
 
 
 import com.hermes.core.domain.AbstractPersistentObject;
+import com.hermes.core.domain.hauls.AbstractHaul;
+import com.hermes.core.domain.orders.AbstractOrder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="PLACES")
@@ -19,14 +22,28 @@ public abstract class AbstractPlace extends AbstractPersistentObject {
         return name;
     }
 
+    @OneToMany(mappedBy = "startPlace", fetch = FetchType.LAZY)
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    List<AbstractHaul> haulsFrom;
+
+    @OneToMany(mappedBy = "finishPlace", fetch = FetchType.LAZY)
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    List<AbstractHaul> haulsTo;
+
+    @OneToMany(mappedBy = "startPlace", fetch = FetchType.LAZY)
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    List<AbstractOrder> ordersFrom;
+
+    @OneToMany(mappedBy = "startPlace", fetch = FetchType.LAZY)
+//    @Cascade({CascadeType.SAVE_UPDATE})
+    List<AbstractOrder> ordersTo;
+
     public String getPlaceType(){
         if(this instanceof BasicCompanyBase){
             return "Company base";
-        }
-        if(this instanceof BasicClientBase){
+        }else if(this instanceof BasicClientBase){
             return "Client base";
-        }
-        if(this instanceof BasicFix){
+        }else if(this instanceof BasicFix){
             return "Fix";
         }
         throw new IllegalStateException();

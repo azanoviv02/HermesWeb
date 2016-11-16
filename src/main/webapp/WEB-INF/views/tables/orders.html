@@ -15,22 +15,37 @@
     <div class="text-center">
         <h1>View orders</h1>
         <p class="lead">
-            All currently add orders:
+            All currently added orders:
         </p>
     </div>
-    <div class="form-narrow form-horizontal coupled-borders coupled-upper no-padding">
-        <table class="full-width hermes-table">
-            <tr class="high-row">
-                <th class="centered">Client name</th>
-                <th class="centered">Order size</th>
-            </tr>
-            <th:block th:each="order : ${orders}">
-                    <tr class="high-row">
-                        <td th:text="${order.clientName}">Clients name</td>
-                        <td th:text="${order.size}">Order size</td>
-                    </tr>
-            </th:block>
-        </table>
+    <div class="form-narrow form-horizontal coupled-borders coupled-upper contrast-colour no-padding">
+        <th:block th:each="order : ${orders}">
+            <div class="whole-order">
+                <div class="upper-order-line"></div>
+                <div class="order-info">
+                    <p th:text="|Client: ${order.clientName}|">Clients name</p>
+                    <p th:text="|Start: ${order.startPlace.name}, ${order.startDate}|">Start: Start Base, Date</p>
+                    <p th:text="|Finish: ${order.finishPlace.name}, ${order.finishDate}|">Finish: Finish Base, Date</p>
+                </div>
+                <div class="lover-order-line"></div>
+                <div class="form-horizontal no-padding">
+                    <table class="full-width hermes-table">
+                        <tr class="high-row">
+                            <th class="centered">Cargo type</th>
+                            <th class="centered">Cargo weight</th>
+                            <th class="centered">Cargo volume</th>
+                        </tr>
+                        <th:block th:each="cargoItem : ${order.cargoList}">
+                            <tr class="high-row">
+                                <td th:text="${cargoItem.cargoType}">Cargo type</td>
+                                <td th:text="${cargoItem.weight}">Cargo weight</td>
+                                <td th:text="${cargoItem.volume}">Cargo volume</td>
+                            </tr>
+                        </th:block>
+                    </table>
+                </div>
+            </div>
+        </th:block>
     </div>
     <div class="form-narrow-trans">
         <a href="/" th:href="@{/}" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Back</a>

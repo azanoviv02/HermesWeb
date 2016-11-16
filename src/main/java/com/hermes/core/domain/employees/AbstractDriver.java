@@ -12,11 +12,14 @@ import javax.persistence.*;
 @DiscriminatorValue("ABSTRACT_DRIVER")
 public abstract class AbstractDriver extends AbstractEmployee {
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "assignedDriver")
-    protected AbstractHaul currentHaul;
+//    @OneToOne(fetch = FetchType.EAGER, mappedBy = "assignedDriver")
+//    protected AbstractHaul currentHaul;
 
     @Embedded
     private DriverLicense driverLicense = new DriverLicense();
+
+    @OneToOne(mappedBy = "assignedDriver", fetch = FetchType.EAGER)
+    private AbstractHaul currentHaul;
 
     AbstractDriver() {
     }
@@ -29,9 +32,9 @@ public abstract class AbstractDriver extends AbstractEmployee {
         super(name, salary);
     }
 
-    public AbstractHaul getCurrentHaul() {
-        return currentHaul;
-    }
+//    public AbstractHaul getCurrentHaul() {
+//        return currentHaul;
+//    }
 
     public DriverLicense getDriverLicense() {
         return driverLicense;
@@ -39,5 +42,13 @@ public abstract class AbstractDriver extends AbstractEmployee {
 
     public void setDriverLicense(DriverLicense driverLicense) {
         this.driverLicense = driverLicense;
+    }
+
+    public AbstractHaul getCurrentHaul() {
+        return currentHaul;
+    }
+
+    private void setCurrentHaul(AbstractHaul currentHaul) {
+        this.currentHaul = currentHaul;
     }
 }

@@ -11,6 +11,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue("BASIC_HAUL")
 public class BasicHaul extends AbstractHaul {
 
-    BasicHaul() {
+    public BasicHaul() {
     }
 }

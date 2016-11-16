@@ -24,6 +24,12 @@ public class GenericServiceImpl<T extends AbstractPersistentObject> implements G
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
+    public void persist(T entity) {
+        repository.persist(entity);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, isolation = READ_COMMITTED)
     public void add(T entity) {
         repository.add(entity);
     }

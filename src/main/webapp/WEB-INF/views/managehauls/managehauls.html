@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currently added hauls</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">Header</div>
+<!--<div th:replace="fragments/header :: header">Header</div>-->
+<div class="container">
+    <div class="text-center">
+        <h1>Manage hauls</h1>
+        <p class="lead">
+            All currently added hauls:
+        </p>
+    </div>
+    <div class="form-narrow form-horizontal coupled-borders coupled-upper contrast-colour no-padding">
+        <th:block th:each="haul : ${hauls}">
+            <div class="whole-order">
+                <div class="order-info">
+                    <p th:text="|Driver: ${haul.assignedDriver.name}|">Driver: Pavel Dudkin</p>
+                    <p th:text="|Vehicle: ${haul.assignedVehicle.vehicleType}|">Vehicle: Basic truck</p>
+                    <p th:text="|Start: ${haul.startPlace.name}, ${haul.startDate}|">Start: Start Base, Date</p>
+                    <p th:text="|Finish: ${haul.finishPlace.name}, ${haul.finishDate}|">Finish: Finish Base, Date</p>
+                    <p th:text="|Status: ${haul.haulStatus}|">Status: Underway</p>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <div class="form-narrow-trans">
+        <a href="/" th:href="@{/}" class="btn btn-success btn-lg coupled-lower full-width btn-finish-order">Back</a>
+    </div>
+    <div th:replace="fragments/footer :: footer">&copy; 2013 The Static Templates</div>
+</div>
+</body>
+</html>
